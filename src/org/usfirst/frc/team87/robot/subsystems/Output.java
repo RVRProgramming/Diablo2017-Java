@@ -10,22 +10,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Output extends Subsystem {
 	static Relay fuelOut;
-	
-	public Output(){
+
+	public Output() {
 		fuelOut = new Relay(RobotMap.FUEL_OUT);
 	}
-	
-	public void output(double speed){
-		if(speed == 1){
+
+	public void output(int speed) {
+		if (speed == 1) {
 			fuelOut.set(Relay.Value.kForward);
-		}else if(speed == -1){
+		} else if (speed == -1) {
 			fuelOut.set(Relay.Value.kReverse);
-		}else{
+		} else {
 			fuelOut.set(Relay.Value.kOff);
 		}
 	}
 
-    public void initDefaultCommand() {
-    }
+	public void initDefaultCommand() {
+	}
 }
-

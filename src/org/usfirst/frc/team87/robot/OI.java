@@ -1,12 +1,11 @@
 package org.usfirst.frc.team87.robot;
 
-import org.usfirst.frc.team87.robot.commands.Climb;
+import org.usfirst.frc.team87.robot.commands.TeleClimb;
+import org.usfirst.frc.team87.robot.commands.TeleIntake;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
 	public static Joystick joystick;
@@ -19,13 +18,12 @@ public class OI {
 		Joystick gamepad = new Joystick(RobotMap.GAMEPAD);
 		// Button slowDown = new JoystickButton(gamepad, RobotMap.SLOWDOWN);
 		Button winchToggle = new JoystickButton(joystick, RobotMap.WINCHTOGGLE);
-		// Button intakeForward = new JoystickButton(joystick, RobotMap.INTAKEFORWARD);
-		// Button intakeReverse = new JoystickButton(joystick, RobotMap.INTAKEREVERSE);
+		Button intakeForward = new JoystickButton(joystick, RobotMap.INTAKEFORWARD);
+		Button intakeReverse = new JoystickButton(joystick, RobotMap.INTAKEREVERSE);
 		// Button output = new JoystickButton(joystick, RobotMap.OUTPUT);
-
-		winchToggle.toggleWhenPressed(new Climb());
-		// intakeForward.whileHeld(new intakeForward());
-		// intakeReverse.whileHeld(new intakeReverse());
+		winchToggle.toggleWhenPressed(new TeleClimb());
+		intakeForward.whileHeld(new TeleIntake(1));
+		intakeReverse.whileHeld(new TeleIntake(-1));
 		// output.whenPressed(new output());
 	}
 
@@ -56,6 +54,10 @@ public class OI {
 
 	public double getWinchSpeed() {
 		return joystick.getRawAxis(RobotMap.WINCH);
+	}
+	
+	public boolean getOutput(){
+		return joystick.getRawButton(RobotMap.OUTPUT);
 	}
 
 }

@@ -1,15 +1,17 @@
 package org.usfirst.frc.team87.robot.commands;
 
+import org.usfirst.frc.team87.robot.Robot;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AutoDrive extends Command {
+public class TeleOutput extends Command {
 
-	public AutoDrive() {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
+	public TeleOutput() {
+		requires(Robot.output);
 	}
 
 	// Called just before this Command runs the first time
@@ -18,19 +20,18 @@ public class AutoDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return !DriverStation.getInstance().isOperatorControl();
 	}
 
-	// Called once after isFinished returns true
 	protected void end() {
+		Robot.output.output(0);
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
 	protected void interrupted() {
+		Robot.output.output(0);
 	}
 }
