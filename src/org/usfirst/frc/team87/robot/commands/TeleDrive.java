@@ -27,11 +27,7 @@ public class TeleDrive extends Command {
 	}
 
 	protected boolean isFinished() {
-		return !DriverStation.getInstance().isOperatorControl();
-	}
-
-	protected void end() {
-		Robot.drivebase.drive(0, 0);
+		return false;
 	}
 
 	protected void interrupted() {
