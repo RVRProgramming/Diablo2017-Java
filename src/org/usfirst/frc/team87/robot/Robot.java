@@ -8,6 +8,7 @@ import org.usfirst.frc.team87.robot.subsystems.Output;
 import org.usfirst.frc.team87.robot.subsystems.Winch;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class Robot extends IterativeRobot {
@@ -17,6 +18,7 @@ public class Robot extends IterativeRobot {
 	public static Winch winch;
 	public static Output output;
 	public static Intake intake;
+	private Command autonomousCommand;
 
 	@Override
 	public void robotInit() {
@@ -42,6 +44,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		drivebase.resetGyro();
+		autoselector.selectCommandGroup();
+		if (autonomousCommand != null) {
+			autonomousCommand.start();
+		}
 	}
 
 	@Override
@@ -51,6 +57,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
+		}
 		drivebase.resetGyro();
 		new TeleDrive().start();
 		new TeleOutput().start();
