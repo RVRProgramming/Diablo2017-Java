@@ -1,5 +1,10 @@
 package org.usfirst.frc.team87.robot;
 
+import org.usfirst.frc.team87.robot.commands.GroupBaseline;
+import org.usfirst.frc.team87.robot.commands.GroupBoiler;
+import org.usfirst.frc.team87.robot.commands.GroupGear;
+
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutonomousSelector {
@@ -92,7 +97,13 @@ public class AutonomousSelector {
 		SmartDashboard.putString("Overall Autonomous", sides[RobotMap.startingSide] + " | " + position[RobotMap.startingPosition] + " | " + destination[RobotMap.endDestination] + " | " + multi[RobotMap.multiAutonomous]);
 	}
 
-	public void selectCommandGroup() {
-
+	public CommandGroup selectCommandGroup() {
+		if(RobotMap.endDestination==1){
+			return new GroupGear();
+		}else if (RobotMap.endDestination==3){
+			return new GroupBoiler();
+		}else{
+			return new GroupBaseline();
+		}
 	}
 }

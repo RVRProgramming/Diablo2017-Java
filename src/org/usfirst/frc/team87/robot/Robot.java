@@ -3,6 +3,7 @@ package org.usfirst.frc.team87.robot;
 import org.usfirst.frc.team87.robot.commands.TeleDrive;
 import org.usfirst.frc.team87.robot.commands.TeleOutput;
 import org.usfirst.frc.team87.robot.subsystems.DriveBase;
+import org.usfirst.frc.team87.robot.subsystems.GearSensor;
 import org.usfirst.frc.team87.robot.subsystems.Intake;
 import org.usfirst.frc.team87.robot.subsystems.Output;
 import org.usfirst.frc.team87.robot.subsystems.Winch;
@@ -18,6 +19,7 @@ public class Robot extends IterativeRobot {
 	public static Winch winch;
 	public static Output output;
 	public static Intake intake;
+	public static GearSensor gearsensor;
 	private Command autonomousCommand;
 
 	@Override
@@ -27,7 +29,9 @@ public class Robot extends IterativeRobot {
 		winch = new Winch();
 		output = new Output();
 		intake = new Intake();
+		gearsensor = new GearSensor();
 		drivebase.initGyro();
+		gearsensor.ultraSetup();
 	}
 
 	@Override
@@ -44,7 +48,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		drivebase.resetGyro();
-		autoselector.selectCommandGroup();
+		autonomousCommand=autoselector.selectCommandGroup();
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}
