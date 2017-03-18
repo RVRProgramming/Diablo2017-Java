@@ -3,16 +3,17 @@ package org.usfirst.frc.team87.robot.subsystems;
 import org.usfirst.frc.team87.robot.Robot;
 import org.usfirst.frc.team87.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveBase extends Subsystem {
-	static Spark driveR1;
-	static Spark driveR2;
-	static Spark driveL1;
-	static Spark driveL2;
+	public ADXRS450_Gyro gyro;
+	public Encoder leftEncoder;
+	public Encoder rightEncoder;
 	RobotDrive diabloDrive;
 
 	public DriveBase() {
@@ -22,46 +23,50 @@ public class DriveBase extends Subsystem {
 			motors[i].enableDeadbandElimination(true);
 		}
 		diabloDrive = new RobotDrive(motors[0], motors[2], motors[1], motors[3]);
+		gyro = new ADXRS450_Gyro();
+		leftEncoder = new Encoder(RobotMap.ENC_l_1, RobotMap.ENC_l_2, false, Encoder.EncodingType.k4X);
+		rightEncoder = new Encoder(RobotMap.ENC_r_1, RobotMap.ENC_r_2, false, Encoder.EncodingType.k4X);
 	}
 
 	public void drive(double left, double right) {
 		diabloDrive.tankDrive(-left, right);
 	}
 
-	public static void initGyro() {
-		Robot.oi.initGyro();
+	public void initGyro() {
+		gyro.calibrate();
 	}
 
 	public void resetGyro() {
-		Robot.oi.resetGyro();
+		gyro.reset();
 	}
 
 	public double getGyro() {
-		return Robot.oi.getGyro();
-	}
-
-	public PIDSource getSourceGyro() {
-		return Robot.oi.gyro;
-	}
-
-	public PIDSource getSourceEncoderLeft() {
-		return Robot.oi.leftEncoder;
-	}
-
-	public PIDSource getSourceEncoderRight() {
-		return Robot.oi.rightEncoder;
+		return gyro.getAngle();
 	}
 
 	public void resetEncoder() {
-		Robot.oi.resetEncoder();
+		leftEncoder.reset();
+		rightEncoder.reset();
 	}
 
 	public int getLeftEncoder() {
-		return Robot.oi.getLeftEncoder();
+		return leftEncoder.get();
 	}
 
 	public int getRightEncoder() {
-		return Robot.oi.getRightEncoder();
+		return rightEncoder.get();
+	}
+
+	public PIDSource getSourceGyro() {
+		return gyro;
+	}
+
+	public PIDSource getSourceEncoderLeft() {
+		return leftEncoder;
+	}
+
+	public PIDSource getSourceEncoderRight() {
+		return rightEncoder;
 	}
 
 	public void initDefaultCommand() {

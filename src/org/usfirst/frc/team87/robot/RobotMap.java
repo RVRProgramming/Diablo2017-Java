@@ -1,8 +1,6 @@
 package org.usfirst.frc.team87.robot;
 
 public class RobotMap {
-	public static final boolean PIDTOGGLE = false;
-
 	//////////////
 	// CONTROLS //
 	//////////////

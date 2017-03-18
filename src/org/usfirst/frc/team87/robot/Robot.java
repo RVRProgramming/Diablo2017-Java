@@ -1,5 +1,6 @@
 package org.usfirst.frc.team87.robot;
 
+import org.usfirst.frc.team87.robot.commands.Autonomous;
 import org.usfirst.frc.team87.robot.commands.TeleDrive;
 import org.usfirst.frc.team87.robot.commands.TeleOutput;
 import org.usfirst.frc.team87.robot.subsystems.DriveBase;
@@ -14,31 +15,24 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static AutonomousSelector autoselector;
-
-	////////////////
-	// SUBSYSTEMS //
-	////////////////
 	public static DriveBase drivebase;
 	public static Winch winch;
 	public static Output output;
 	public static Intake intake;
-
-	//////////////
-	// COMMANDS //
-	//////////////
-	Command TeleDrive;
 
 	@Override
 	public void robotInit() {
 		oi = new OI();
 		drivebase = new DriveBase();
 		winch = new Winch();
-		oi.initGyro();
+		output = new Output();
+		intake = new Intake();
+		drivebase.initGyro();
 	}
 
 	@Override
 	public void disabledInit() {
-		oi.resetGyro();
+		drivebase.resetGyro();
 	}
 
 	@Override
@@ -49,7 +43,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		oi.resetGyro();
+		drivebase.resetGyro();
+		new Autonomous().start();
 	}
 
 	@Override
@@ -59,7 +54,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		oi.resetGyro();
+		drivebase.resetGyro();
 		new TeleDrive().start();
 		new TeleOutput().start();
 	}
@@ -68,6 +63,5 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		oi.backwardsCheck();
-
 	}
 }
