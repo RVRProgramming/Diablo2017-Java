@@ -1,6 +1,7 @@
 package org.usfirst.frc.team87.robot;
 
 import org.usfirst.frc.team87.robot.commands.TeleDrive;
+import org.usfirst.frc.team87.robot.commands.TeleOutput;
 import org.usfirst.frc.team87.robot.subsystems.DriveBase;
 import org.usfirst.frc.team87.robot.subsystems.Intake;
 import org.usfirst.frc.team87.robot.subsystems.Output;
@@ -32,11 +33,12 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		drivebase = new DriveBase();
 		winch = new Winch();
+		oi.initGyro();
 	}
 
 	@Override
 	public void disabledInit() {
-
+		oi.resetGyro();
 	}
 
 	@Override
@@ -47,7 +49,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-
+		oi.resetGyro();
 	}
 
 	@Override
@@ -57,7 +59,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+		oi.resetGyro();
 		new TeleDrive().start();
+		new TeleOutput().start();
 	}
 
 	@Override

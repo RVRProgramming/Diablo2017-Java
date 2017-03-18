@@ -3,7 +3,6 @@ package org.usfirst.frc.team87.robot.commands;
 import org.usfirst.frc.team87.robot.Robot;
 import org.usfirst.frc.team87.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TeleDrive extends Command {

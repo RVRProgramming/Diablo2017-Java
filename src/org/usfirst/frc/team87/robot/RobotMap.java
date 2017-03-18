@@ -1,6 +1,8 @@
 package org.usfirst.frc.team87.robot;
 
 public class RobotMap {
+	public static final boolean PIDTOGGLE = false;
+
 	//////////////
 	// CONTROLS //
 	//////////////
@@ -44,6 +46,8 @@ public class RobotMap {
 	public static final double INCH_TO_ENC = 256 / (WHEELDIAMETER * Math.PI); //Multiply by inches to get the equivalent in encoder value.
 	public static final double SLOWDOWNSPEED = 0.75; //Percentage to slow down to when slowDown button is pressed.
 	public static final double WINCHTHRESHOLD = 0.05; //Required minimum on axis to enable winch
+	public static final double ANGLETOLERANCE = 0.75;
+	public static final double DISTANCETOLERANCE = 3*INCH_TO_ENC;
 	public static int startingSide;
 	public static int startingPosition;
 	public static int endDestination;
