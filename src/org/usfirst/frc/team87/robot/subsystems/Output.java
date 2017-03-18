@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Output extends Subsystem {
 	static Relay fuelOut;
-	public static DigitalInput limitTop;
+	public DigitalInput limitTop;
 	public static DigitalInput limitBottom;
 
 	public Output() {

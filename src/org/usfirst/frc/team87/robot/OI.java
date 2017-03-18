@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
-	public static Joystick joystick;
-	public static Joystick gamepad;
+	public Joystick joystick;
+	public Joystick gamepad;
 	public ADXRS450_Gyro gyro;
 	public Encoder leftEncoder;
 	public Encoder rightEncoder;
