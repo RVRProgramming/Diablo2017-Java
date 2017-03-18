@@ -53,7 +53,7 @@ public class AutoDrive extends Command {
 	}
 
 	protected boolean isFinished() {
-		return leftDriveController.onTarget()&&rightDriveController.onTarget();
+		return leftDriveController.onTarget() && rightDriveController.onTarget();
 	}
 
 	protected void end() {

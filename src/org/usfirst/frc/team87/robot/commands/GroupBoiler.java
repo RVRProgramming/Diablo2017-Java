@@ -1,31 +1,15 @@
 package org.usfirst.frc.team87.robot.commands;
 
-import org.usfirst.frc.team87.robot.Robot;
 import org.usfirst.frc.team87.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class GroupBoiler extends CommandGroup {
-	int sideMultiplier = -1+(2*RobotMap.startingSide);
-    public GroupBoiler() {
-    	requires(Robot.drivebase);
-    	requires(Robot.output);
-    	
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
+	int sideMultiplier = -1 + (2 * RobotMap.startingSide);
 
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
-    }
+	public GroupBoiler() {
+		addSequential(new AutoDrive(-93.307));
+		addSequential(new AutoTurn(46 * sideMultiplier));
+		addSequential(new AutoDrive(118.374));
+	}
 }

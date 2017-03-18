@@ -4,9 +4,6 @@ import org.usfirst.frc.team87.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class TeleIntake extends Command {
 	double speed;
 

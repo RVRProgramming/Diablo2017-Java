@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		drivebase.resetGyro();
-		autonomousCommand=autoselector.selectCommandGroup();
+		autonomousCommand = autoselector.selectCommandGroup();
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}

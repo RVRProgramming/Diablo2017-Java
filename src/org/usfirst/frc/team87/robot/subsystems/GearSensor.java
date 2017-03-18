@@ -29,7 +29,7 @@ public class GearSensor extends Subsystem {
 	public void checkForGear() {
 		if (getUltra() > 5 * (RobotMap.ULTRATOTAL / RobotMap.ULTRATIMES)) {
 			RobotMap.HOLDINGGEAR = false;
-		}else{
+		} else {
 			RobotMap.HOLDINGGEAR = true;
 		}
 	}

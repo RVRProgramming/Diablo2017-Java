@@ -98,11 +98,11 @@ public class AutonomousSelector {
 	}
 
 	public CommandGroup selectCommandGroup() {
-		if(RobotMap.endDestination==1){
+		if (RobotMap.endDestination == 1) {
 			return new GroupGear();
-		}else if (RobotMap.endDestination==3){
+		} else if (RobotMap.endDestination == 3) {
 			return new GroupBoiler();
-		}else{
+		} else {
 			return new GroupBaseline();
 		}
 	}
