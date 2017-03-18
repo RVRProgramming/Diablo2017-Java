@@ -48,6 +48,7 @@ public class AutoDrive extends Command {
 		if (rightDriveController.onTarget()) {
 			rightSpeed = 0;
 		}
+		Robot.drivebase.drive(leftSpeed, rightSpeed);
 	}
 
 	protected boolean isFinished() {
