@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
-	public Joystick joystick;
-	public Joystick gamepad;
-	public static boolean backwardsButton = false;
-	public static boolean backwardsToggle = false;
+	private Joystick joystick;
+	private Joystick gamepad;
+	private boolean backwardsButton = false;
+	private boolean backwardsToggle = false;
 
 	public OI() {
 		joystick = new Joystick(RobotMap.JOYSTICK);
