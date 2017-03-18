@@ -31,6 +31,7 @@ public class AutoDrive extends Command {
 	protected void initialize() {
 		Timer.delay(0.5);
 		Robot.drivebase.resetGyro();
+		Robot.drivebase.resetEncoder();
 		angleController.enable();
 		leftDriveController.enable();
 		rightDriveController.enable();

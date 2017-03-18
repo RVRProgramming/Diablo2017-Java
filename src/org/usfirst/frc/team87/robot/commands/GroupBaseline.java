@@ -1,14 +1,12 @@
 package org.usfirst.frc.team87.robot.commands;
 
 import org.usfirst.frc.team87.robot.Robot;
+import org.usfirst.frc.team87.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
 public class GroupBaseline extends CommandGroup {
-
+	int sideMultiplier = -1+(2*RobotMap.startingSide);
     public GroupBaseline() {
     	requires(Robot.drivebase);
     	
