@@ -58,4 +58,8 @@ public class OI {
 	public boolean getOutput() {
 		return joystick.getRawButton(RobotMap.OUTPUT);
 	}
+	
+	public int getPOV(){
+		return gamepad.getPOV();
+	}
 }

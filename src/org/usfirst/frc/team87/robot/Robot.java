@@ -21,6 +21,8 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	public static GearSensor gearsensor;
 	private Command autonomousCommand;
+	private Command TeleOutput;
+	private Command TeleDrive;
 
 	@Override
 	public void robotInit() {
@@ -32,6 +34,8 @@ public class Robot extends IterativeRobot {
 		gearsensor = new GearSensor();
 		drivebase.initGyro();
 		gearsensor.ultraSetup();
+		TeleOutput = new TeleOutput();
+		TeleDrive = new TeleDrive();
 	}
 
 	@Override
@@ -64,9 +68,8 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
-		drivebase.resetGyro();
-		new TeleDrive().start();
-		new TeleOutput().start();
+		TeleDrive.start();
+		TeleOutput.start();
 	}
 
 	@Override

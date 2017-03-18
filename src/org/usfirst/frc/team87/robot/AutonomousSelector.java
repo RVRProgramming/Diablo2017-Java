@@ -20,7 +20,7 @@ public class AutonomousSelector {
 	public static int[] column = { 0, 0, 0, 0, 2, 3, 1, 1 };
 
 	public void autoSelectorLogic() {
-		POV = Robot.oi.gamepad.getPOV();
+		POV = Robot.oi.getPOV();
 		sides[0] = sides[0].toLowerCase();
 		sides[1] = sides[1].toLowerCase();
 		position[0] = position[0].toLowerCase();
