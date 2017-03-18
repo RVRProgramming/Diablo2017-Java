@@ -51,16 +51,16 @@ public class DriveBase extends Subsystem {
 	public PIDSource getSourceEncoderRight() {
 		return Robot.oi.rightEncoder;
 	}
-	
-	public void resetEncoder(){
+
+	public void resetEncoder() {
 		Robot.oi.resetEncoder();
 	}
-	
-	public int getLeftEncoder(){
+
+	public int getLeftEncoder() {
 		return Robot.oi.getLeftEncoder();
 	}
-	
-	public int getRightEncoder(){
+
+	public int getRightEncoder() {
 		return Robot.oi.getRightEncoder();
 	}
 
