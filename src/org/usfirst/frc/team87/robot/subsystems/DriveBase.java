@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveBase extends Subsystem {
-	public ADXRS450_Gyro gyro;
-	public Encoder leftEncoder;
-	public Encoder rightEncoder;
-	RobotDrive diabloDrive;
+	private ADXRS450_Gyro gyro;
+	private Encoder leftEncoder;
+	private Encoder rightEncoder;
+	private RobotDrive diabloDrive;
 
 	public DriveBase() {
 		Spark[] motors = new Spark[4];

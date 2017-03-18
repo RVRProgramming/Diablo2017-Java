@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Output extends Subsystem {
-	static Relay fuelOut;
-	public DigitalInput limitTop;
-	public static DigitalInput limitBottom;
+	private Relay fuelOut;
+	private DigitalInput limitTop;
+	private DigitalInput limitBottom;
 
 	public Output() {
 		fuelOut = new Relay(RobotMap.FUEL_OUT);

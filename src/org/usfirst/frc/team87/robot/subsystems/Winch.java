@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Winch extends Subsystem {
-	static CANTalon winchL;
-	static CANTalon winchR;
+	private CANTalon winchL;
+	private CANTalon winchR;
 
 	public Winch() {
 		winchL = new CANTalon(RobotMap.WINCHL);

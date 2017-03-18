@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Intake extends Subsystem {
-	static VictorSP fuelIn;
+	private VictorSP fuelIn;
 
 	public Intake() {
 		fuelIn = new VictorSP(RobotMap.FUEL_IN);
