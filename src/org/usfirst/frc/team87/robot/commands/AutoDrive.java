@@ -12,8 +12,8 @@ public class AutoDrive extends Command {
 	double leftSpeed;
 	double rightSpeed;
 	private PIDController angleController = new PIDController(0.60606, 15, 2, Robot.drivebase.getSourceGyro(), angleModifier -> this.angleModifier = angleModifier);
-	private PIDController leftDriveController = new PIDController(0.60606, 15, 2, Robot.drivebase.getSourceEncoderLeft(), leftSpeed -> this.leftSpeed = leftSpeed);
-	private PIDController rightDriveController = new PIDController(0.60606, 15, 2, Robot.drivebase.getSourceEncoderRight(), rightSpeed -> this.rightSpeed = rightSpeed);
+	private PIDController leftDriveController = new PIDController(0.5, 20, 3, Robot.drivebase.getSourceEncoderLeft(), leftSpeed -> this.leftSpeed = leftSpeed);
+	private PIDController rightDriveController = new PIDController(0.5, 20, 3, Robot.drivebase.getSourceEncoderRight(), rightSpeed -> this.rightSpeed = rightSpeed);
 
 	public AutoDrive(double distance) {
 		requires(Robot.drivebase);

@@ -1,7 +1,9 @@
 package org.usfirst.frc.team87.robot.commands;
 
 import org.usfirst.frc.team87.robot.Robot;
+import org.usfirst.frc.team87.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -9,24 +11,32 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class AutoTurn extends Command {
+	double speed;
+	private PIDController angleController = new PIDController(0.5, 20, 3, Robot.drivebase.getSourceGyro(), speed -> this.speed = speed);
 
-	public AutoTurn() {
+	public AutoTurn(double angle) {
 		requires(Robot.drivebase);
+		Robot.drivebase.resetGyro();
+		angleController.setAbsoluteTolerance(RobotMap.ANGLETOLERANCE);
+		angleController.setOutputRange(-1, 1);
+		angleController.setSetpoint(angle);
 	}
 
 	protected void initialize() {
 		Timer.delay(0.5);
+		angleController.enable();
 	}
 
 	protected void execute() {
-
+		Robot.drivebase.drive(speed, -speed);
 	}
 
 	protected boolean isFinished() {
-		return false;
+		return angleController.onTarget();
 	}
 
 	protected void end() {
 		Robot.drivebase.drive(0, 0);
+		angleController.disable();
 	}
 }
