@@ -19,7 +19,6 @@ public class AutoTurn extends Command {
 	}
 
 	protected void initialize() {
-		Timer.delay(0.5);
 		Robot.drivebase.resetGyro();
 		angleController.enable();
 	}
