@@ -17,7 +17,6 @@ public class AutoDrive extends Command {
 
 	public AutoDrive(double distance) {
 		requires(Robot.drivebase);
-		Robot.drivebase.resetGyro();
 		angleController.setAbsoluteTolerance(RobotMap.ANGLETOLERANCE);
 		angleController.setOutputRange(0, 1);
 		angleController.setSetpoint(0);
@@ -31,6 +30,7 @@ public class AutoDrive extends Command {
 
 	protected void initialize() {
 		Timer.delay(0.5);
+		Robot.drivebase.resetGyro();
 		angleController.enable();
 		leftDriveController.enable();
 		rightDriveController.enable();

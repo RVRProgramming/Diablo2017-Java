@@ -16,7 +16,6 @@ public class AutoTurn extends Command {
 
 	public AutoTurn(double angle) {
 		requires(Robot.drivebase);
-		Robot.drivebase.resetGyro();
 		angleController.setAbsoluteTolerance(RobotMap.ANGLETOLERANCE);
 		angleController.setOutputRange(-1, 1);
 		angleController.setSetpoint(angle);
@@ -24,6 +23,7 @@ public class AutoTurn extends Command {
 
 	protected void initialize() {
 		Timer.delay(0.5);
+		Robot.drivebase.resetGyro();
 		angleController.enable();
 	}
 
