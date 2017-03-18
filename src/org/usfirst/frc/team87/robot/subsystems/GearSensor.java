@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class GearSensor extends Subsystem {
-	static Ultrasonic ultra;
+	private Ultrasonic ultra;
 
 	public GearSensor() {
 		ultra = new Ultrasonic(RobotMap.ULTRA_OUT, RobotMap.ULTRA_IN);
@@ -26,11 +26,11 @@ public class GearSensor extends Subsystem {
 		RobotMap.ULTRATIMES += 1;
 	}
 
-	public void checkForGear() {
+	public boolean checkForGear() {
 		if (getUltra() > 5 * (RobotMap.ULTRATOTAL / RobotMap.ULTRATIMES)) {
-			RobotMap.HOLDINGGEAR = false;
+			return false;
 		} else {
-			RobotMap.HOLDINGGEAR = true;
+			return true;
 		}
 	}
 
