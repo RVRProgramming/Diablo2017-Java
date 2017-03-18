@@ -6,9 +6,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
 public class Output extends Subsystem {
 	static Relay fuelOut;
 	public DigitalInput limitTop;
@@ -28,6 +25,10 @@ public class Output extends Subsystem {
 		} else {
 			fuelOut.set(Relay.Value.kOff);
 		}
+	}
+
+	public boolean getTopLimit() {
+		return limitTop.get();
 	}
 
 	public void initDefaultCommand() {

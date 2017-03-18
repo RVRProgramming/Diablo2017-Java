@@ -4,9 +4,6 @@ import org.usfirst.frc.team87.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
 public class GroupGear extends CommandGroup {
 
     public GroupGear() {

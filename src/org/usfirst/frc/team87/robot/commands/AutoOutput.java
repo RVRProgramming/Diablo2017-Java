@@ -18,7 +18,7 @@ public class AutoOutput extends Command {
     }
 
     protected boolean isFinished() {
-        return Robot.output.limitTop.get();
+        return Robot.output.getTopLimit();
     }
 
     protected void end() {
