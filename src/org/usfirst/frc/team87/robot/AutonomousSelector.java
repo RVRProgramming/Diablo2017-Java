@@ -91,4 +91,8 @@ public class AutonomousSelector {
 		}
 		SmartDashboard.putString("Overall Autonomous", sides[RobotMap.startingSide] + " | " + position[RobotMap.startingPosition] + " | " + destination[RobotMap.endDestination] + " | " + multi[RobotMap.multiAutonomous]);
 	}
+
+	public void selectCommandGroup() {
+
+	}
 }

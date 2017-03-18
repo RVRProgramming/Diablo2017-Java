@@ -7,9 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class GroupGear extends CommandGroup {
 
     public GroupGear() {
-    	requires(Robot.drivebase);
-    	
-        // Add Commands here:
+    	// Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.

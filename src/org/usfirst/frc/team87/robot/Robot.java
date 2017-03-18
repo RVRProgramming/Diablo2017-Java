@@ -1,6 +1,5 @@
 package org.usfirst.frc.team87.robot;
 
-import org.usfirst.frc.team87.robot.commands.Autonomous;
 import org.usfirst.frc.team87.robot.commands.TeleDrive;
 import org.usfirst.frc.team87.robot.commands.TeleOutput;
 import org.usfirst.frc.team87.robot.subsystems.DriveBase;
@@ -9,7 +8,6 @@ import org.usfirst.frc.team87.robot.subsystems.Output;
 import org.usfirst.frc.team87.robot.subsystems.Winch;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class Robot extends IterativeRobot {
@@ -44,7 +42,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		drivebase.resetGyro();
-		new Autonomous().start();
 	}
 
 	@Override
