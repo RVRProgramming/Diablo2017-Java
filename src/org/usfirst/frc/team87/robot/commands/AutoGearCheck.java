@@ -7,27 +7,29 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoGearCheck extends Command {
-
+	private boolean gearDelivered;
+	private Timer timer;
 	public AutoGearCheck() {
 		requires(Robot.gearsensor);
 	}
 
 	protected void execute() {
 		Robot.gearsensor.checkForGear();
+		if(!RobotMap.HOLDINGGEAR){
+            if(timer.hasPeriodPassed(2)){
+                gearDelivered = true;
+            }else if(timer.get() == 0){
+                timer.start();
+            }
+        }else{
+            timer.reset();
+            timer.stop();
+            gearDelivered = false;
+        }
 	}
 
 	protected boolean isFinished() {
-		if (!RobotMap.HOLDINGGEAR) {
-			Timer.delay(2);
-			Robot.gearsensor.checkForGear();
-			if (!RobotMap.HOLDINGGEAR) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
+		return gearDelivered;
 	}
 
 	protected void end() {

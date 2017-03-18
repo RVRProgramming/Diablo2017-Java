@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoDrive extends Command {
-	double angleModifier;
-	double leftSpeed;
-	double rightSpeed;
+	private double angleModifier;
+	private double leftSpeed;
+	private double rightSpeed;
 	private PIDController angleController = new PIDController(0.60606, 15, 2, Robot.drivebase.getSourceGyro(), angleModifier -> this.angleModifier = angleModifier);
 	private PIDController leftDriveController = new PIDController(0.5, 20, 3, Robot.drivebase.getSourceEncoderLeft(), leftSpeed -> this.leftSpeed = leftSpeed);
 	private PIDController rightDriveController = new PIDController(0.5, 20, 3, Robot.drivebase.getSourceEncoderRight(), rightSpeed -> this.rightSpeed = rightSpeed);

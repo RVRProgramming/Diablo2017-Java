@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoTurn extends Command {
-	double speed;
+	private double speed;
 	private PIDController angleController = new PIDController(0.5, 20, 3, Robot.drivebase.getSourceGyro(), speed -> this.speed = speed);
 
 	public AutoTurn(double angle) {
