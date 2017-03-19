@@ -4,7 +4,6 @@ import org.usfirst.frc.team87.robot.Robot;
 import org.usfirst.frc.team87.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoTurn extends Command {
