@@ -21,14 +21,14 @@ public class DriveBase extends Subsystem {
 			motors[i] = new Spark(RobotMap.DRIVEMOTORS[i]);
 			motors[i].enableDeadbandElimination(true);
 		}
-		diabloDrive = new RobotDrive(motors[0], motors[2], motors[1], motors[3]);
+		diabloDrive = new RobotDrive(motors[0], motors[1], motors[2], motors[3]);
 		gyro = new ADXRS450_Gyro();
 		leftEncoder = new Encoder(RobotMap.ENC_l_1, RobotMap.ENC_l_2, false, Encoder.EncodingType.k4X);
 		rightEncoder = new Encoder(RobotMap.ENC_r_1, RobotMap.ENC_r_2, false, Encoder.EncodingType.k4X);
 	}
 
 	public void drive(double left, double right) {
-		diabloDrive.tankDrive(-left, right);
+		diabloDrive.tankDrive(-left, -right);
 	}
 
 	public void initGyro() {

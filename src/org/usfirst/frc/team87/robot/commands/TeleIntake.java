@@ -13,7 +13,7 @@ public class TeleIntake extends Command {
 	}
 
 	protected void execute() {
-		Robot.intake.intake(speed);
+		Robot.intake.intake(-speed);
 	}
 
 	protected boolean isFinished() {

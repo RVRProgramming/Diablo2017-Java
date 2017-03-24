@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotInit() {
-		autoselector = new AutonomnousSelector();
+		autoselector = new AutonomousSelector();
 		drivebase = new DriveBase();
 		winch = new Winch();
 		output = new Output();
