@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class TeleClimb extends Command {
 	public TeleClimb() {
-		super("Climb");
 		requires(Robot.winch);
 	}
 
