@@ -11,6 +11,7 @@ import org.usfirst.frc.team87.robot.subsystems.Winch;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	public static OI oi;
@@ -26,16 +27,24 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotInit() {
-		oi = new OI();
+		autoselector = new AutonomnousSelector();
 		drivebase = new DriveBase();
 		winch = new Winch();
 		output = new Output();
 		intake = new Intake();
 		gearsensor = new GearSensor();
+		oi = new OI();
 		drivebase.initGyro();
 		gearsensor.ultraSetup();
 		TeleOutput = new TeleOutput();
 		TeleDrive = new TeleDrive();
+	}
+
+	public void dashDisplay() {
+		SmartDashboard.putNumber("Gyro: ", drivebase.getGyro());
+		SmartDashboard.putNumber("Ultra: ", gearsensor.getUltra());
+		SmartDashboard.putNumber("Left Encode: ", drivebase.getLeftEncoder());
+		SmartDashboard.putNumber("Right Encode: ", drivebase.getLeftEncoder());
 	}
 
 	@Override
@@ -47,6 +56,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		autoselector.autoSelectorLogic();
+		dashDisplay();
 	}
 
 	@Override
@@ -61,6 +71,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		dashDisplay();
 	}
 
 	@Override
@@ -76,5 +87,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		oi.backwardsCheck();
+		dashDisplay();
 	}
 }

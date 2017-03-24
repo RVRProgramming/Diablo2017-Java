@@ -13,11 +13,11 @@ public class GroupGear extends CommandGroup {
 			addSequential(new AutoDrive(-80.707));
 			addSequential(new WaitCommand(0.5));
 		} else {
-			addSequential(new AutoDrive(-88.563));
+			addSequential(new AutoDrive(-84.563));
 			addSequential(new WaitCommand(0.5));
 			addSequential(new AutoTurn(-60 * (RobotMap.startingPosition - 1)));
 			addSequential(new WaitCommand(0.5));
-			addSequential(new AutoDrive(-38.974));
+			addSequential(new AutoDrive(-39.974));
 			addSequential(new WaitCommand(0.5));
 		}
 		if (RobotMap.multiAutonomous == 1) {

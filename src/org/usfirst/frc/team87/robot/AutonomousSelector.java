@@ -18,6 +18,10 @@ public class AutonomousSelector {
 	public static int row;
 	public static String[] rowPrefix = { "      ", "      ", "      ", "      " };
 	public static int[] column = { 0, 0, 0, 0, 2, 3, 1, 1 };
+	
+	public AutonomousSelector(){
+		
+	}
 
 	public void autoSelectorLogic() {
 		POV = Robot.oi.getPOV();
