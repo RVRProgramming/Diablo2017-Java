@@ -1,0 +1,31 @@
+package org.usfirst.frc.team87.robot.commands;
+
+import org.usfirst.frc.team87.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
+
+/**
+ *
+ */
+public class AutoDriveStraight extends Command {
+	private long startTime;
+    public AutoDriveStraight() {
+    }
+
+    protected void initialize() {
+    	Robot.drivebase.resetEncoder();
+    	this.startTime=System.currentTimeMillis();
+    }
+
+    protected void execute() {
+    	Robot.drivebase.drive(0.75, 0.75);
+    }
+
+    protected boolean isFinished() {
+        return System.currentTimeMillis()-startTime>1300;
+    }
+
+    protected void end() {
+    	Robot.drivebase.drive(0, 0);
+    }
+}

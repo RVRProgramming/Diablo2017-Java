@@ -49,7 +49,7 @@ public class DriveBase extends Subsystem {
 	}
 
 	public int getLeftEncoder() {
-		return leftEncoder.get();
+		return -leftEncoder.get();
 	}
 
 	public int getRightEncoder() {

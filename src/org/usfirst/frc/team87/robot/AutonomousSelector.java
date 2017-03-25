@@ -1,8 +1,6 @@
 package org.usfirst.frc.team87.robot;
 
-import org.usfirst.frc.team87.robot.commands.GroupBaseline;
-import org.usfirst.frc.team87.robot.commands.GroupBoiler;
-import org.usfirst.frc.team87.robot.commands.GroupGear;
+import org.usfirst.frc.team87.robot.commands.GroupDriveStraight;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -102,12 +100,19 @@ public class AutonomousSelector {
 	}
 
 	public CommandGroup selectCommandGroup() {
-		if (RobotMap.endDestination == 1) {
+		/*if (RobotMap.endDestination == 1) {
 			return new GroupGear();
 		} else if (RobotMap.endDestination == 3) {
 			return new GroupBoiler();
-		} else {
+		} else if (RobotMap.endDestination == 2){
 			return new GroupBaseline();
+		} else {
+			return null;
+		}*/
+		if(RobotMap.endDestination==0){
+			return null;
+		}else{
+			return new GroupDriveStraight();
 		}
 	}
 }

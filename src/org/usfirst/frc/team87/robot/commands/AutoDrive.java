@@ -7,18 +7,18 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoDrive extends Command {
-	private double angleModifier;
+	private double angleModifier=0;
 	private double leftSpeed;
 	private double rightSpeed;
-	private PIDController angleController = new PIDController(0.60606, 15, 2, Robot.drivebase.getSourceGyro(), angleModifier -> this.angleModifier = angleModifier);
-	private PIDController leftDriveController = new PIDController(0.5, 20, 3, Robot.drivebase.getSourceEncoderLeft(), leftSpeed -> this.leftSpeed = leftSpeed);
-	private PIDController rightDriveController = new PIDController(0.5, 20, 3, Robot.drivebase.getSourceEncoderRight(), rightSpeed -> this.rightSpeed = rightSpeed);
+	//private PIDController angleController = new PIDController(0, 0, 0, Robot.drivebase.getSourceGyro(), angleModifier -> this.angleModifier = angleModifier);
+	private PIDController leftDriveController = new PIDController(0, 0, 0, Robot.drivebase.getSourceEncoderLeft(), leftSpeed -> this.leftSpeed = leftSpeed);
+	private PIDController rightDriveController = new PIDController(0, 0, 0, Robot.drivebase.getSourceEncoderRight(), rightSpeed -> this.rightSpeed = rightSpeed);
 
 	public AutoDrive(double distance) {
 		requires(Robot.drivebase);
-		angleController.setAbsoluteTolerance(RobotMap.ANGLETOLERANCE);
-		angleController.setOutputRange(0, 1);
-		angleController.setSetpoint(0);
+		//angleController.setAbsoluteTolerance(RobotMap.ANGLETOLERANCE);
+		//angleController.setOutputRange(0, 1);
+		//angleController.setSetpoint(0);
 		leftDriveController.setAbsoluteTolerance(RobotMap.DISTANCETOLERANCE);
 		leftDriveController.setOutputRange(-1, 1);
 		leftDriveController.setSetpoint(distance * RobotMap.INCH_TO_ENC);
@@ -30,16 +30,17 @@ public class AutoDrive extends Command {
 	protected void initialize() {
 		Robot.drivebase.resetGyro();
 		Robot.drivebase.resetEncoder();
-		angleController.enable();
+		//angleController.enable();
 		leftDriveController.enable();
 		rightDriveController.enable();
 	}
 
 	protected void execute() {
+		angleModifier = 1-angleModifier;
 		if (((leftSpeed + rightSpeed) / 2) * Robot.drivebase.getGyro() > 0) {
 			leftSpeed *= angleModifier;
 		} else if (((leftSpeed + rightSpeed) / 2) * Robot.drivebase.getGyro() < 0) {
-			rightSpeed *= angleModifier;
+			rightSpeed = angleModifier;
 		}
 		if (leftDriveController.onTarget()) {
 			leftSpeed = 0;
@@ -56,7 +57,7 @@ public class AutoDrive extends Command {
 
 	protected void end() {
 		Robot.drivebase.drive(0, 0);
-		angleController.disable();
+		//angleController.disable();
 		leftDriveController.disable();
 		rightDriveController.disable();
 	}

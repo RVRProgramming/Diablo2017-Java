@@ -45,7 +45,7 @@ public class RobotMap {
 	public static final double SLOWDOWNSPEED = 0.75; //Percentage to slow down to when slowDown button is pressed.
 	public static final double WINCHTHRESHOLD = 0.05; //Required minimum on axis to enable winch
 	public static final double ANGLETOLERANCE = 0.75;
-	public static final double DISTANCETOLERANCE = 3 * INCH_TO_ENC;
+	public static final double DISTANCETOLERANCE = 1.5 * INCH_TO_ENC;
 	public static boolean HOLDINGGEAR = true;
 	public static double ULTRATOTAL;
 	public static double ULTRATIMES;

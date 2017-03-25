@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Gyro: ", drivebase.getGyro());
 		SmartDashboard.putNumber("Ultra: ", gearsensor.getUltra());
 		SmartDashboard.putNumber("Left Encode: ", drivebase.getLeftEncoder());
-		SmartDashboard.putNumber("Right Encode: ", drivebase.getLeftEncoder());
+		SmartDashboard.putNumber("Right Encode: ", drivebase.getRightEncoder());
 	}
 
 	@Override
