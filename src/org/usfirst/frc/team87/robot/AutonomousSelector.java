@@ -16,9 +16,9 @@ public class AutonomousSelector {
 	public static int row;
 	public static String[] rowPrefix = { "      ", "      ", "      ", "      " };
 	public static int[] column = { 0, 0, 0, 0, 2, 3, 1, 1 };
-	
-	public AutonomousSelector(){
-		
+
+	public AutonomousSelector() {
+
 	}
 
 	public void autoSelectorLogic() {
@@ -109,9 +109,9 @@ public class AutonomousSelector {
 		} else {
 			return null;
 		}*/
-		if(RobotMap.endDestination==0){
+		if (RobotMap.endDestination == 0) {
 			return null;
-		}else{
+		} else {
 			return new GroupDriveStraight();
 		}
 	}

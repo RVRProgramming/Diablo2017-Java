@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutoDriveStraight extends Command {
 	private long startTime;
-    public AutoDriveStraight() {
+	private long driveTime = 0;
+    public AutoDriveStraight(long driveTime) {
+    	this.driveTime=driveTime;
     }
 
     protected void initialize() {
@@ -22,7 +24,7 @@ public class AutoDriveStraight extends Command {
     }
 
     protected boolean isFinished() {
-        return System.currentTimeMillis()-startTime>1300;
+        return System.currentTimeMillis()-startTime>driveTime;
     }
 
     protected void end() {
