@@ -11,6 +11,7 @@ public class TeleClimb extends Command {
 	}
 
 	protected void execute() {
+		Robot.winch.ledPower(true);
 		Robot.winch.climb(Robot.oi.getWinchSpeed());
 		SmartDashboard.putNumber("Winch Throttle", Robot.oi.getWinchSpeed());
 		SmartDashboard.putNumber("Left Motor", Robot.winch.getPDP(14));
@@ -26,5 +27,6 @@ public class TeleClimb extends Command {
 
 	protected void interrupted() {
 		Robot.winch.climb(0);
+		Robot.winch.ledPower(false);
 	}
 }

@@ -6,17 +6,20 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Winch extends Subsystem {
 	private CANTalon winchL;
 	private CANTalon winchR;
 	private PowerDistributionPanel pdp;
+	private Relay led;
 
 	public Winch() {
 		winchL = new CANTalon(RobotMap.WINCHL);
 		winchR = new CANTalon(RobotMap.WINCHR);
 		pdp = new PowerDistributionPanel();
+		led = new Relay(RobotMap.LED);
 	}
 
 	public void climb(double speed) {
@@ -28,9 +31,17 @@ public class Winch extends Subsystem {
 			winchR.set(0);
 		}
 	}
-	
-	public double getPDP(int port){
+
+	public double getPDP(int port) {
 		return pdp.getCurrent(port);
+	}
+
+	public void ledPower(boolean power) {
+		if (power) {
+			led.set(Relay.Value.kForward);
+		} else {
+			led.set(Relay.Value.kOff);
+		}
 	}
 
 	public void initDefaultCommand() {

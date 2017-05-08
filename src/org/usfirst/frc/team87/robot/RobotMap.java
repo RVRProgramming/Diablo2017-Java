@@ -21,7 +21,7 @@ public class RobotMap {
 	////////////
 	public static final int[] DRIVEMOTORS = { 0, 1, 2, 3 }; // Sparks and CIMs {L1, L2, R1, R2}
 	public static final int FUEL_IN = 4; // VictorSP and Snowblower
-	public static final int FUEL_OUT = 0; // Spike and Window Motor
+	public static final int FUEL_OUT = 3; // Spike and Window Motor
 	public static final int WINCHL = 1; // TalonSRX and Van Door
 	public static final int WINCHR = 2; // TalonSRX and Van Door
 
@@ -36,6 +36,7 @@ public class RobotMap {
 	public static final int ULTRA_OUT = 5; // switch these two port numbers.
 	public static final int LIMITTOP = 8;
 	public static final int LIMITBOTTOM = 9;
+	public static final int LED = 0;
 
 	///////////////
 	// Variables //
