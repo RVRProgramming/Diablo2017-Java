@@ -8,6 +8,7 @@ public class Selector {
 	 * <ul><li>For POV/dPad control set up the input array like this {controllerNumber}</li><li>For joystick/2-axis control set up the input array like this {controllerNumber, leftRightAxis, upDownAxis}</li><li>For 4-button control set up the input array like this {controllerNumber, leftButton, rightButton, upButton, downButton}</li></ul>
 	 */
 	private Joystick controller;
+	private inputType inputType;
 	private int[] inputPorts;
 	private rowInteraction interactionType;
 	private int numberOfRows;
@@ -78,6 +79,7 @@ public class Selector {
 			}
 			this.inputPorts = inputPorts;
 			controller = new Joystick(inputPorts[0]);
+			this.inputType = inputType;
 		}
 
 	}
