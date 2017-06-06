@@ -61,10 +61,10 @@ public class Selector {
 
 		if (rowInteraction == null) {
 			throw new IllegalArgumentException("Null is not valid for the rowInteraction.");
-		} else if (numberOfRows = 1 && rowInteraction != rowInteraction.off) {
+		} else if (numberOfRows == 1 && rowInteraction != rowInteraction.off) {
 			interactionType = rowInteraction.off;
 			System.out.println("This rowInteraction is not valid for 1 row. The rowInteraction is now off. For 1 row, off is the only valid rowInteraction.");
-		} else if (numberOfRows = 2 && rowInteraction == rowInteraction.linkedAdaptive) {
+		} else if (numberOfRows == 2 && rowInteraction == rowInteraction.linkedAdaptive) {
 			interactionType = rowInteraction.adaptive;
 			System.out.println("LinkedAdaptive rowInteraction is not valid for 2 rows. The rowInteraction is now adaptive.");
 		} else {
