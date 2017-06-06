@@ -20,8 +20,8 @@ public class Selector {
 	 * This enumerator defines the different types of row interactions supported by the selector.
 	 * <ul>
 	 * <li><b>off</b> turns off all row interactions.</li>
-	 * <li><b>adaptive</b> allows you to add adaptive option selection. This means that given option x in row y, you can choose to display only certain options from row y+1.</li>
-	 * <li><b>linkedAdaptive</b> allows you to add advanced adaptive option selection. This means that given one of the listed options{{x, y, z, ...}, {x, y, z, ...}, {x, y, z, ...}, ...} from rows{a, b, c, ...} ban options{l, m, n, ...} from row s. For the ban to be true, every chosen row must have one of the signified options selected.</li>
+	 * <li><b>adaptive</b> allows you to add adaptive option selection. This means that given option x in row y, you can choose to display only certain options from row y+1. This option supports only two or more rows.</li> 
+	 * <li><b>linkedAdaptive</b> allows you to add advanced adaptive option selection. This means that given one of the listed options{{x, y, z, ...}, {x, y, z, ...}, {x, y, z, ...}, ...} from rows{a, b, c, ...} ban options{l, m, n, ...} from row s. For the ban to be true, every chosen row must have one of the signified options selected. This option supports only 3 or more rows.</li>
 	 * </ul>
 	 * ADD DOCUMENTATION HERE FOR AN EXAMPLE OF MAKING ADAPTIVE RESTRICTIONS WORK IN CONJUNCTION WITH LINKEDADAPTIVE RESTRICTIONS.
 	 * <p>
@@ -61,6 +61,12 @@ public class Selector {
 
 		if (rowInteraction == null) {
 			throw new IllegalArgumentException("Null is not valid for the rowInteraction.");
+		} else if (numberOfRows = 1 && rowInteraction != rowInteraction.off) {
+			interactionType = rowInteraction.off;
+			System.out.println("This rowInteraction is not valid for 1 row. The rowInteraction is now off. For 1 row, off is the only valid rowInteraction.");
+		} else if (numberOfRows = 2 && rowInteraction == rowInteraction.linkedAdaptive) {
+			interactionType = rowInteraction.adaptive;
+			System.out.println("LinkedAdaptive rowInteraction is not valid for 2 rows. The rowInteraction is now adaptive.");
 		} else {
 			interactionType = rowInteraction;
 		}
@@ -74,7 +80,7 @@ public class Selector {
 		} else {
 			for (int i = 0; i < inputPorts.length; i++) {
 				if (inputPorts[i] < 0) {
-					throw new IndexOutOfBoundsException("Port numbers must have a value of 0 or greater.");
+					throw new IndexOutOfBoundsException("Port numbers should have a value of 0 or greater. The offending port value is #" + i + " in the inputPorts array.");
 				}
 			}
 			this.inputPorts = inputPorts;
