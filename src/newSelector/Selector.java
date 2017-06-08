@@ -13,8 +13,10 @@ public class Selector {
 	private rowInteraction interactionType;
 	private int numberOfRows;
 	private String[][] rowOptions;
+	private int[] selectedOptions;
 	private String[] rowNames;
-	private boolean properlyInitialized = true;
+	private Boolean properlyInitialized;
+	private Boolean properlyConfigured = true;
 
 	/**
 	 * This enumerator defines the different types of row interactions supported by the selector.
@@ -52,6 +54,7 @@ public class Selector {
 	 */
 	public Selector(int numberOfRows, rowInteraction rowInteraction, inputType inputType, int[] inputPorts) {
 		if (numberOfRows <= 0) {
+			properlyConfigured = false;
 			throw new IndexOutOfBoundsException("You must have at least 1 row.");
 		} else {
 			this.numberOfRows = numberOfRows;
@@ -60,6 +63,7 @@ public class Selector {
 		}
 
 		if (rowInteraction == null) {
+			properlyConfigured = false;
 			throw new IllegalArgumentException("Null is not valid for the rowInteraction.");
 		} else if (numberOfRows == 1 && rowInteraction != rowInteraction.off) {
 			interactionType = rowInteraction.off;
@@ -72,15 +76,19 @@ public class Selector {
 		}
 
 		if (inputType == null) {
+			properlyConfigured = false;
 			throw new IllegalArgumentException("Null is not valid for the inputType.");
 		} else if (inputPorts == null) {
+			properlyConfigured = false;
 			throw new IllegalArgumentException("Null is not valid for the inputPorts.");
 		} else if ((inputPorts.length != 1 && (inputType == inputType.POV || inputType == inputType.dPad)) || (inputPorts.length != 3 && (inputType == inputType.joystick || inputType == inputType.twoAxis)) || (inputPorts.length != 5 && inputType == inputType.fourButton)) {
+			properlyConfigured = false;
 			throw new IllegalArgumentException("The inputPorts array must be the correct size for the inputType of " + inputType + ".");
 		} else {
 			for (int i = 0; i < inputPorts.length; i++) {
 				if (inputPorts[i] < 0) {
-					throw new IndexOutOfBoundsException("Port numbers should have a value of 0 or greater. The offending port value is #" + i + " in the inputPorts array.");
+					properlyConfigured = false;
+					throw new IndexOutOfBoundsException("Port/button numbers should have a value of 0 or greater. The detected offending port value is #" + i + " in the inputPorts array.");
 				}
 			}
 			this.inputPorts = inputPorts;
@@ -95,6 +103,11 @@ public class Selector {
 	 * @return Returns true if initialization passes, false if it fails.
 	 */
 	public boolean initTester() {
+		if (!properlyConfigured) {
+			properlyInitialized = false;
+			System.out.println("This selector is not properly configured. Please check the constructor arguments.");
+		}
+
 		for (int i = 0; i < numberOfRows; i++) {
 			if (rowOptions[i] == null) {
 				System.out.println("Options have not been set (or set properly) for row " + i + ".");
@@ -105,7 +118,49 @@ public class Selector {
 				properlyInitialized = false;
 			}
 		}
+
+		if (properlyInitialized == null) {
+			properlyInitialized = true;
+		}
+
 		return properlyInitialized;
+	}
+
+	/**
+	 * Gets the selected option number for the designated row.
+	 * @param row What row to find the selected option from,
+	 * @return Returns the selected option as an integer.
+	 */
+	public int getOption(int row) {
+		return selectedOptions[row];
+	}
+
+	/**
+	 * Gets the selected option name for the designated row.
+	 * @param row What row to find the selected option from,
+	 * @return Returns the selected option's name/value as a String.
+	 */
+	public String getOptionAsString(int row) {
+		return rowOptions[row][selectedOptions[row]];
+	}
+
+	/**
+	 * Grabs the name of the designated row.
+	 * @param row Row to find the name of.
+	 * @return Returns the row's name as a String.
+	 */
+	public String getRowName(int row) {
+		return rowNames[row];
+	}
+
+	/**
+	 * Grabs the name of the designated option.
+	 * @param row Row that contains the option.
+	 * @param option Option to find the name of.
+	 * @return Returns the option's name as a String.
+	 */
+	public String getOptionName(int row, int option) {
+		return rowOptions[row][option];
 	}
 
 	/**
@@ -115,7 +170,7 @@ public class Selector {
 	 */
 	public void setRowOptions(int row, String[] options) {
 		if (row < 0 || row > numberOfRows - 1) {
-			throw new IndexOutOfBoundsException("The valid row numbers are from 0 to " + numberOfRows + ".");
+			throw new IndexOutOfBoundsException("The valid row numbers are from 0 to " + (numberOfRows - 1) + ".");
 		} else if (rowOptions[row] != null) {
 			throw new IllegalArgumentException("This row already has options assigned to it.");
 		}
@@ -140,7 +195,7 @@ public class Selector {
 	 */
 	public void setRowName(int row, String name) {
 		if (row < 0 || row > numberOfRows - 1) {
-			throw new IndexOutOfBoundsException("The valid row numbers are from 0 to " + numberOfRows + ".");
+			throw new IndexOutOfBoundsException("The valid row numbers are from 0 to " + (numberOfRows - 1) + ".");
 		} else if (rowNames[row] != null) {
 			throw new IllegalArgumentException("This row already has a name assigned to it.");
 		}
