@@ -16,7 +16,10 @@ public class Selector {
 	private int[] selectedOptions;
 	private String[] rowNames;
 	private Boolean properlyInitialized;
-	private Boolean properlyConfigured = true;
+	private boolean properlyConfigured = true;
+	private boolean buttonPressed = false;
+	private int movementDirection = 0;
+	private boolean buttonNewlyPressed = false;
 
 	/**
 	 * This enumerator defines the different types of row interactions supported by the selector.
@@ -37,19 +40,18 @@ public class Selector {
 	 * This enumerator defines the different types of inputs supported by the selector.
 	 * <ul>
 	 * <li><b>POV</b> and <b>dPad</b> use the directional pad or POV pad. They are interchangeable.</li>
-	 * <li><b>joystick</b> and <b>twoAxis</b> use a joystick or two axes. They are interchangeable.</li>
 	 * <li><b>fourButton</b> uses four buttons.
 	 * </ul>
 	 */
 	public enum inputType {
-		POV, dPad, joystick, twoAxis, fourButton
+		POV, dPad, fourButton
 	}
 
 	/**
 	 * This is the constructor for a new selector with automated grabbing for input values from given ports.
 	 * @param numberOfRows Number of rows or option categories for the selector.
 	 * @param rowInteraction See the javaDoc for the <b>rowInteraction</b> enum.
-	 * @param inputPorts <ul><li>For POV/dPad control set up the input array like this {controllerNumber}</li><li>For joystick/twoAxis control set up the input array like this {controllerNumber, leftRightAxis, upDownAxis}</li><li>For fourButton control set up the input array like this {controllerNumber, leftButton, rightButton, upButton, downButton}</li></ul>
+	 * @param inputPorts <ul><li>For POV/dPad control set up the input array like this {controllerNumber}</li><li>For fourButton control set up the input array like this {controllerNumber, leftButton, rightButton, upButton, downButton}</li></ul>
 	 * @see rowInteraction
 	 */
 	public Selector(int numberOfRows, rowInteraction rowInteraction, inputType inputType, int[] inputPorts) {
@@ -81,7 +83,7 @@ public class Selector {
 		} else if (inputPorts == null) {
 			properlyConfigured = false;
 			throw new IllegalArgumentException("Null is not valid for the inputPorts.");
-		} else if ((inputPorts.length != 1 && (inputType == inputType.POV || inputType == inputType.dPad)) || (inputPorts.length != 3 && (inputType == inputType.joystick || inputType == inputType.twoAxis)) || (inputPorts.length != 5 && inputType == inputType.fourButton)) {
+		} else if ((inputPorts.length != 1 && (inputType == inputType.POV || inputType == inputType.dPad)) || (inputPorts.length != 5 && inputType == inputType.fourButton)) {
 			properlyConfigured = false;
 			throw new IllegalArgumentException("The inputPorts array must be the correct size for the inputType of " + inputType + ".");
 		} else {
@@ -131,7 +133,7 @@ public class Selector {
 	 * @param row What row to find the selected option from,
 	 * @return Returns the selected option as an integer.
 	 */
-	public int getOption(int row) {
+	public int getSelectedOption(int row) {
 		return selectedOptions[row];
 	}
 
@@ -140,7 +142,7 @@ public class Selector {
 	 * @param row What row to find the selected option from,
 	 * @return Returns the selected option's name/value as a String.
 	 */
-	public String getOptionAsString(int row) {
+	public String getSelectedOptionAsString(int row) {
 		return rowOptions[row][selectedOptions[row]];
 	}
 
@@ -205,6 +207,52 @@ public class Selector {
 		}
 
 		rowNames[row] = name;
+	}
+
+	private int getPOV() {
+		if (controller.getPOV() % 90 != 0) {
+			return -1;
+		} else if (controller.getPOV() == -1) {
+			return 0;
+		} else {
+			return ((controller.getPOV() / 90) + 1);
+		}
+	}
+
+	private int getFourButton() {
+		if (!controller.getRawButton(inputPorts[1]) && !controller.getRawButton(inputPorts[2]) && !controller.getRawButton(inputPorts[3]) && !controller.getRawButton(inputPorts[4])) {
+			return 0;
+		} else if (controller.getRawButton(inputPorts[1]) && !controller.getRawButton(inputPorts[2]) && !controller.getRawButton(inputPorts[3]) && !controller.getRawButton(inputPorts[4])) {
+			return 4;
+		} else if (!controller.getRawButton(inputPorts[1]) && controller.getRawButton(inputPorts[2]) && !controller.getRawButton(inputPorts[3]) && !controller.getRawButton(inputPorts[4])) {
+			return 2;
+		} else if (!controller.getRawButton(inputPorts[1]) && !controller.getRawButton(inputPorts[2]) && controller.getRawButton(inputPorts[3]) && !controller.getRawButton(inputPorts[4])) {
+			return 1;
+		} else if (!controller.getRawButton(inputPorts[1]) && !controller.getRawButton(inputPorts[2]) && !controller.getRawButton(inputPorts[3]) && controller.getRawButton(inputPorts[4])) {
+			return 3;
+		} else {
+			return -1;
+		}
+	}
+
+	private void controlLogic() {
+		int buttonDirection = -1;
+		if (inputType == inputType.POV || inputType == inputType.dPad) {
+			buttonDirection = getPOV();
+		} else if (inputType == inputType.fourButton) {
+			buttonDirection = getFourButton();
+		}
+
+		if (buttonDirection == -1) {
+		} else if (buttonPressed && buttonDirection == 0) {
+			buttonPressed = false;
+			movementDirection = 0;
+			buttonNewlyPressed = true;
+		} else if (!buttonPressed && buttonDirection != 0) {
+			buttonPressed = true;
+			movementDirection = buttonDirection;
+			buttonNewlyPressed = true;
+		}
 	}
 
 }
