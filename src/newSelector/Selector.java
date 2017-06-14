@@ -1,6 +1,7 @@
 package newSelector;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Selector {
 
@@ -14,6 +15,7 @@ public class Selector {
 	private int numberOfRows;
 	private String[][] rowOptions;
 	private int[] selectedOptions;
+	private int selectedRow = 0;
 	private String[] rowNames;
 	private Boolean properlyInitialized;
 	private boolean properlyConfigured = true;
@@ -62,6 +64,10 @@ public class Selector {
 			this.numberOfRows = numberOfRows;
 			rowOptions = new String[numberOfRows][];
 			rowNames = new String[numberOfRows];
+			selectedOptions = new int[numberOfRows];
+			for (int i = 0; i < selectedOptions.length; i++) {
+				selectedOptions[i] = 0;
+			}
 		}
 
 		if (rowInteraction == null) {
@@ -252,6 +258,55 @@ public class Selector {
 			buttonPressed = true;
 			movementDirection = buttonDirection;
 			buttonNewlyPressed = true;
+		}
+	}
+
+	public void selectorLogic() {
+		if (properlyInitialized) {
+			controlLogic();
+			if (buttonNewlyPressed) {
+				buttonNewlyPressed = false;
+				switch (movementDirection) {
+				case 1:
+					selectedRow++;
+				case 2:
+					selectedOptions[selectedRow]++;
+				case 3:
+					selectedRow--;
+				case 4:
+					selectedOptions[selectedRow]--;
+				default:
+				}
+
+				if (selectedRow > numberOfRows - 1) {
+					selectedRow = 0;
+				} else if (selectedRow < 0) {
+					selectedRow = numberOfRows - 1;
+				}
+
+				if (selectedOptions[selectedRow] > rowOptions[selectedRow].length - 1) {
+					selectedOptions[selectedRow] = 0;
+				} else if (selectedOptions[selectedRow] < 0) {
+					selectedOptions[selectedRow] = rowOptions[selectedRow].length - 1;
+				}
+				
+				//Display logic starts here.
+				for(int i=0;i<numberOfRows;i++){
+					String rowToDisplay = "";
+					for(int i1=0; i1<rowOptions[selectedRow].length;i++){
+						if(i1==selectedOptions[selectedRow]){
+							rowToDisplay += rowOptions[selectedRow][i1].toUpperCase();
+						} else {
+							rowToDisplay += rowOptions[selectedRow][i1];
+						}
+						
+						if (i1 < rowOptions[selectedRow].length-1){
+							rowToDisplay += " | ";
+						}
+					}
+					SmartDashboard.putString(rowNames[i], rowToDisplay);
+				}
+			}
 		}
 	}
 
