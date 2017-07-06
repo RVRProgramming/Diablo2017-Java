@@ -22,7 +22,7 @@ public class NewAutoSelector extends Command {
 		String[] row2options={"1","2"};
 		newSelector.setRowName(0, "Row 1");
 		newSelector.setRowName(1, "Row 2");
-		newSelector.setRowOptions(0, row2options);
+		newSelector.setRowOptions(0, row1options);
 		newSelector.setRowOptions(1, row2options);
 	}
 

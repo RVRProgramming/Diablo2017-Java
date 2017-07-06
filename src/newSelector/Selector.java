@@ -1,13 +1,12 @@
 package newSelector;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Selector {
 
-	/**
-	 * <ul><li>For POV/dPad control set up the input array like this {controllerNumber}</li><li>For joystick/2-axis control set up the input array like this {controllerNumber, leftRightAxis, upDownAxis}</li><li>For 4-button control set up the input array like this {controllerNumber, leftButton, rightButton, upButton, downButton}</li></ul>
-	 */
 	private Joystick controller;
 	private inputType inputType;
 	private int[] inputPorts;
@@ -22,6 +21,8 @@ public class Selector {
 	private boolean buttonPressed = false;
 	private int movementDirection = 0;
 	private boolean buttonNewlyPressed = false;
+	private ArrayList adaptiveConstraints = new ArrayList();
+	private ArrayList linkedConstraints = new ArrayList();
 
 	/**
 	 * This enumerator defines the different types of row interactions supported by the selector.
@@ -53,7 +54,8 @@ public class Selector {
 	 * This is the constructor for a new selector with automated grabbing for input values from given ports.
 	 * @param numberOfRows Number of rows or option categories for the selector.
 	 * @param rowInteraction See the javaDoc for the <b>rowInteraction</b> enum.
-	 * @param inputPorts <ul><li>For POV/dPad control set up the input array like this {controllerNumber}</li><li>For fourButton control set up the input array like this {controllerNumber, leftButton, rightButton, upButton, downButton}</li></ul>
+	 * @param inputPorts <ul><li>For POV/dPad control set up the input array like this {controllerNumber}</li>
+	 * 					     <li>For fourButton control set up the input array like this {controllerNumber, leftButton, rightButton, upButton, downButton}</li></ul>
 	 * @see rowInteraction
 	 */
 	public Selector(int numberOfRows, rowInteraction rowInteraction, inputType inputType, int[] inputPorts) {
@@ -215,6 +217,11 @@ public class Selector {
 		rowNames[row] = name;
 	}
 
+	/**
+	 * Getter for the movement direction from the POV. 
+	 * @return Output values explained in the controlLogic JavaDoc.
+	 * @see #controlLogic
+	 */
 	private int getPOV() {
 		int POV = controller.getPOV();
 		if (POV == -1) {
@@ -226,6 +233,11 @@ public class Selector {
 		}
 	}
 
+	/**
+	 * Getter for the movement direction from the 4 designated buttons. 
+	 * @return Output values explained in the controlLogic JavaDoc.
+	 * @see #controlLogic
+	 */
 	private int getFourButton() {
 		boolean up = controller.getRawButton(inputPorts[3]);
 		boolean right = controller.getRawButton(inputPorts[2]);
@@ -243,35 +255,6 @@ public class Selector {
 			return 4;
 		} else {
 			return -1;
-		}
-	}
-
-	/**
-	 *  This handles the main control logic for row and option switching. Values passed through should range from -1 to 4 where the values are interpreted as follows:
-	 *  <br>-1: Invalid input, typically ignored.
-	 *  <br>0: No button pressed.
-	 *  <br>1: Up
-	 *  <br>2: Right
-	 *  <br>3: Down
-	 *  <br>4: Left
-	 */
-	private void controlLogic() {
-		int buttonDirection = -1;
-		if (inputType == inputType.POV || inputType == inputType.dPad) {
-			buttonDirection = getPOV();
-		} else if (inputType == inputType.fourButton) {
-			buttonDirection = getFourButton();
-		}
-
-		if (buttonDirection == -1) {
-		} else if (buttonPressed && buttonDirection == 0) {
-			buttonPressed = false;
-			movementDirection = 0;
-			buttonNewlyPressed = true;
-		} else if (!buttonPressed && buttonDirection != 0) {
-			buttonPressed = true;
-			movementDirection = buttonDirection;
-			buttonNewlyPressed = true;
 		}
 	}
 
@@ -310,6 +293,35 @@ public class Selector {
 			displayLogic();
 		}
 
+	}
+
+	/**
+	 *  This handles the main control logic for row and option switching. Values passed through should range from -1 to 4 where the values are interpreted as follows:
+	 *  <br>-1: Invalid input, typically ignored.
+	 *  <br>0: No button pressed.
+	 *  <br>1: Up
+	 *  <br>2: Right
+	 *  <br>3: Down
+	 *  <br>4: Left
+	 */
+	private void controlLogic() {
+		int buttonDirection = -1;
+		if (inputType == inputType.POV || inputType == inputType.dPad) {
+			buttonDirection = getPOV();
+		} else if (inputType == inputType.fourButton) {
+			buttonDirection = getFourButton();
+		}
+
+		if (buttonDirection == -1) {
+		} else if (buttonPressed && buttonDirection == 0) {
+			buttonPressed = false;
+			movementDirection = 0;
+			buttonNewlyPressed = true;
+		} else if (!buttonPressed && buttonDirection != 0) {
+			buttonPressed = true;
+			movementDirection = buttonDirection;
+			buttonNewlyPressed = true;
+		}
 	}
 
 	/**
