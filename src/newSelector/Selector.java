@@ -216,31 +216,45 @@ public class Selector {
 	}
 
 	private int getPOV() {
-		if (controller.getPOV() % 90 != 0) {
-			return -1;
-		} else if (controller.getPOV() == -1) {
+		int POV = controller.getPOV();
+		if (POV == -1) {
 			return 0;
+		} else if (POV % 90 != 0) {
+			return -1;
 		} else {
-			return ((controller.getPOV() / 90) + 1);
+			return ((POV / 90) + 1);
 		}
 	}
 
 	private int getFourButton() {
-		if (!controller.getRawButton(inputPorts[1]) && !controller.getRawButton(inputPorts[2]) && !controller.getRawButton(inputPorts[3]) && !controller.getRawButton(inputPorts[4])) {
+		boolean up = controller.getRawButton(inputPorts[3]);
+		boolean right = controller.getRawButton(inputPorts[2]);
+		boolean down = controller.getRawButton(inputPorts[4]);
+		boolean left = controller.getRawButton(inputPorts[1]);
+		if (!up && !right && !down && !left) {
 			return 0;
-		} else if (controller.getRawButton(inputPorts[1]) && !controller.getRawButton(inputPorts[2]) && !controller.getRawButton(inputPorts[3]) && !controller.getRawButton(inputPorts[4])) {
-			return 4;
-		} else if (!controller.getRawButton(inputPorts[1]) && controller.getRawButton(inputPorts[2]) && !controller.getRawButton(inputPorts[3]) && !controller.getRawButton(inputPorts[4])) {
-			return 2;
-		} else if (!controller.getRawButton(inputPorts[1]) && !controller.getRawButton(inputPorts[2]) && controller.getRawButton(inputPorts[3]) && !controller.getRawButton(inputPorts[4])) {
+		} else if (up && !right && !down && !left) {
 			return 1;
-		} else if (!controller.getRawButton(inputPorts[1]) && !controller.getRawButton(inputPorts[2]) && !controller.getRawButton(inputPorts[3]) && controller.getRawButton(inputPorts[4])) {
+		} else if (!up && right && !down && !left) {
+			return 2;
+		} else if (!up && !right && down && !left) {
 			return 3;
+		} else if (!up && !right && !down && left) {
+			return 4;
 		} else {
 			return -1;
 		}
 	}
 
+	/**
+	 *  This handles the main control logic for row and option switching. Values passed through should range from -1 to 4 where the values are interpreted as follows:
+	 *  <br>-1: Invalid input, typically ignored.
+	 *  <br>0: No button pressed.
+	 *  <br>1: Up
+	 *  <br>2: Right
+	 *  <br>3: Down
+	 *  <br>4: Left
+	 */
 	private void controlLogic() {
 		int buttonDirection = -1;
 		if (inputType == inputType.POV || inputType == inputType.dPad) {
@@ -261,18 +275,21 @@ public class Selector {
 		}
 	}
 
+	/**
+	 * Main selector logic here. Should be called in a loop to keep the selector updated.
+	 */
 	public void selectorLogic() {
-		if (properlyInitialized) {
+		if (properlyInitialized) { //I haven't decided what to do if the selector isn't initialized properly. If I print out a message, it will spam the end user which is not desirable. Maybe spam it 5 or 10 times and then trigger an off toggle?
 			controlLogic();
 			if (buttonNewlyPressed) {
 				buttonNewlyPressed = false;
 				switch (movementDirection) {
 				case 1:
-					selectedRow++;
+					selectedRow--;
 				case 2:
 					selectedOptions[selectedRow]++;
 				case 3:
-					selectedRow--;
+					selectedRow++;
 				case 4:
 					selectedOptions[selectedRow]--;
 				default:
@@ -289,24 +306,30 @@ public class Selector {
 				} else if (selectedOptions[selectedRow] < 0) {
 					selectedOptions[selectedRow] = rowOptions[selectedRow].length - 1;
 				}
-				
-				//Display logic starts here.
-				for(int i=0;i<numberOfRows;i++){
-					String rowToDisplay = "";
-					for(int i1=0; i1<rowOptions[selectedRow].length;i++){
-						if(i1==selectedOptions[selectedRow]){
-							rowToDisplay += rowOptions[selectedRow][i1].toUpperCase();
-						} else {
-							rowToDisplay += rowOptions[selectedRow][i1];
-						}
-						
-						if (i1 < rowOptions[selectedRow].length-1){
-							rowToDisplay += " | ";
-						}
-					}
-					SmartDashboard.putString(rowNames[i], rowToDisplay);
+			}
+			displayLogic();
+		}
+
+	}
+
+	/**
+	 * This handles all of the display logic for a selector.
+	 */
+	private void displayLogic() {
+		for (int i = 0; i < numberOfRows; i++) {
+			String rowToDisplay = "";
+			for (int i1 = 0; i1 < rowOptions[selectedRow].length; i++) {
+				if (i1 == selectedOptions[selectedRow]) {
+					rowToDisplay += rowOptions[selectedRow][i1].toUpperCase();
+				} else {
+					rowToDisplay += rowOptions[selectedRow][i1];
+				}
+
+				if (i1 < rowOptions[selectedRow].length - 1) {
+					rowToDisplay += " | ";
 				}
 			}
+			SmartDashboard.putString(rowNames[i], rowToDisplay);
 		}
 	}
 
