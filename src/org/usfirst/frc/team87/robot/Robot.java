@@ -1,5 +1,6 @@
 package org.usfirst.frc.team87.robot;
 
+import org.usfirst.frc.team87.robot.commands.NewAutoSelector;
 import org.usfirst.frc.team87.robot.commands.TeleDrive;
 import org.usfirst.frc.team87.robot.commands.TeleOutput;
 import org.usfirst.frc.team87.robot.subsystems.DriveBase;
@@ -24,6 +25,7 @@ public class Robot extends IterativeRobot {
 	private Command autonomousCommand;
 	private Command TeleOutput;
 	private Command TeleDrive;
+	private Command NewAutoSelector;  // TEMP
 
 	@Override
 	public void robotInit() {
@@ -38,6 +40,8 @@ public class Robot extends IterativeRobot {
 		gearsensor.ultraSetup();
 		TeleOutput = new TeleOutput();
 		TeleDrive = new TeleDrive();
+		NewAutoSelector = new NewAutoSelector();  // TEMP
+		NewAutoSelector.start();  // TEMP
 	}
 
 	public void dashDisplay() {

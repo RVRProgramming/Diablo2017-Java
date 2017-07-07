@@ -6,7 +6,7 @@ import newSelector.Selector.inputType;
 import newSelector.Selector.rowInteraction;
 
 /**
- *
+ *  This command is a test command to work with the new autonomous selector.
  */
 public class NewAutoSelector extends Command {
 	Selector newSelector;
@@ -24,10 +24,12 @@ public class NewAutoSelector extends Command {
 		newSelector.setRowName(1, "Row 2");
 		newSelector.setRowOptions(0, row1options);
 		newSelector.setRowOptions(1, row2options);
+		newSelector.initTester();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		newSelector.selectorLogic();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
