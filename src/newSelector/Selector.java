@@ -18,6 +18,7 @@ public class Selector {
 	private String[] rowNames;
 	private Boolean properlyInitialized;
 	private boolean properlyConfigured = true;
+	private int numberOfFailedInits = 0;
 	private boolean buttonPressed = false;
 	private int movementDirection = 0;
 	private boolean buttonNewlyPressed = false;
@@ -291,8 +292,10 @@ public class Selector {
 				}
 			}
 			displayLogic();
+		} else if (numberOfFailedInits < 5) {
+			numberOfFailedInits++;
+			System.out.println("There was an issue while starting your selector. Please check your logs to determine what went wrong.");
 		}
-
 	}
 
 	/**
