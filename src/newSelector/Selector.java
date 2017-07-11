@@ -22,8 +22,10 @@ public class Selector {
 	private boolean buttonPressed = false;
 	private int movementDirection = 0;
 	private boolean buttonNewlyPressed = false;
-	private ArrayList adaptiveConstraints = new ArrayList();
-	private ArrayList linkedConstraints = new ArrayList();
+	private ArrayList adaptivelyConstrainedRows = new ArrayList(0);
+	private ArrayList adaptivelyConstrainedOptions = new ArrayList(0);
+	private ArrayList adaptiveConstraints = new ArrayList(0);
+	private ArrayList linkedConstraints = new ArrayList(0);
 
 	/**
 	 * This enumerator defines the different types of row interactions supported by the selector.
@@ -216,6 +218,57 @@ public class Selector {
 		}
 
 		rowNames[row] = name;
+	}
+
+	public void addAdaptiveConstraint(int row, int option, int[] allowedOptions) {
+		boolean optionRepeats = false;
+		boolean optionIsNotAnOption = false;
+		boolean optionAlreadyUsed = false;
+		if (interactionType != rowInteraction.off) {
+			for (int i = 0; i < allowedOptions.length; i++) {
+				for (int i2 = 0; i2 < allowedOptions.length; i++) {
+					if (i != i2 && allowedOptions[i] == allowedOptions[i2]) {
+						optionRepeats = true;
+					}
+				}
+				if (allowedOptions[i] < 0 || allowedOptions[i] > rowOptions[row + 1].length) {
+					optionIsNotAnOption = true;
+				}
+			}
+			
+			for (int i = 0; i < adaptivelyConstrainedRows.size(); i++){
+				if ((int) adaptivelyConstrainedRows.get(i) == row && (int) adaptivelyConstrainedOptions.get(i) == option) {
+					optionAlreadyUsed = true;
+				}
+			}
+
+			if (optionAlreadyUsed) {
+				throw new IllegalArgumentException("The given option in the given row has already been constrained.");
+			} else if (row < 0 || row > numberOfRows - 2) {
+				throw new IllegalArgumentException("The valid row numbers are from 0 to " + (numberOfRows - 2) + ".");
+			} else if (allowedOptions.length > rowOptions[row + 1].length - 1) {
+				throw new IllegalArgumentException("There must be at least one option that is not whitelisted ");
+			} else if (optionRepeats) {
+				throw new IllegalArgumentException("Options in the allowedOptions array must not repeat.");
+			} else if (optionIsNotAnOption) {
+				throw new IllegalArgumentException("All option numbers in allowedOptions must be valid option numbers for the row after the designated row.");
+			} else {
+				adaptivelyConstrainedRows.add(row);
+				adaptivelyConstrainedOptions.add(option);
+				adaptiveConstraints.add(allowedOptions);
+			}
+
+		} else {
+			System.out.println("You cannot use adaptive constraints while the rowInteraction type is set to off.");
+		}
+	}
+
+	public void addLinkedConstraint() {
+		if (interactionType == rowInteraction.linkedAdaptive) {
+
+		} else {
+			System.out.println("You cannot use linked constraints while the rowInteraction type is set to off.");
+		}
 	}
 
 	/**
