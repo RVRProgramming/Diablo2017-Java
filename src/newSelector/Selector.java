@@ -136,6 +136,7 @@ public class Selector {
 			properlyInitialized = true;
 		}
 
+		displayLogic();
 		return properlyInitialized;
 	}
 

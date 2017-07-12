@@ -25,7 +25,7 @@ public class Robot extends IterativeRobot {
 	private Command autonomousCommand;
 	private Command TeleOutput;
 	private Command TeleDrive;
-	private Command NewAutoSelector;  // TEMP
+	private NewAutoSelector NewAutoSelector;
 
 	@Override
 	public void robotInit() {
@@ -41,7 +41,6 @@ public class Robot extends IterativeRobot {
 		TeleOutput = new TeleOutput();
 		TeleDrive = new TeleDrive();
 		NewAutoSelector = new NewAutoSelector();  // TEMP
-		NewAutoSelector.start();  // TEMP
 	}
 
 	public void dashDisplay() {
@@ -53,13 +52,15 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledInit() {
+		NewAutoSelector.initialize();
 		drivebase.resetGyro();
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		autoselector.autoSelectorLogic();
+		NewAutoSelector.execute();
+		//autoselector.autoSelectorLogic();
 		dashDisplay();
 	}
 

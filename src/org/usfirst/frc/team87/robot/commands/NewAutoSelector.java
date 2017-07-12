@@ -12,12 +12,12 @@ public class NewAutoSelector extends Command {
 	Selector newSelector;
 
 	public NewAutoSelector() {
-		int[] inputs = {0};
+		int[] inputs = {1};
 		newSelector = new Selector(2, rowInteraction.off, inputType.dPad, inputs);
 	}
 
 	// Called just before this Command runs the first time
-	protected void initialize() {
+	public void initialize() {
 		String[] row1options={"1", "2", "3"};
 		String[] row2options={"1","2"};
 		newSelector.setRowName(0, "Row 1");
@@ -25,10 +25,11 @@ public class NewAutoSelector extends Command {
 		newSelector.setRowOptions(0, row1options);
 		newSelector.setRowOptions(1, row2options);
 		newSelector.initTester();
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
+	public void execute() {
 		newSelector.selectorLogic();
 	}
 
