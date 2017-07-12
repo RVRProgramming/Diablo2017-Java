@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 		TeleOutput = new TeleOutput();
 		TeleDrive = new TeleDrive();
 		NewAutoSelector = new NewAutoSelector();  // TEMP
-		NewAutoSelector.start();  // TEMP
+		
 	}
 
 	public void dashDisplay() {
@@ -53,6 +53,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledInit() {
+		Scheduler.getInstance().run();
+		NewAutoSelector.start();  // TEMP
 		drivebase.resetGyro();
 	}
 
@@ -65,6 +67,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+		Scheduler.getInstance().run();
 		drivebase.resetGyro();
 		autonomousCommand = autoselector.selectCommandGroup();
 		if (autonomousCommand != null) {
@@ -80,6 +83,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+		Scheduler.getInstance().run();
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
