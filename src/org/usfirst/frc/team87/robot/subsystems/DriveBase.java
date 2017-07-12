@@ -23,8 +23,8 @@ public class DriveBase extends Subsystem {
 		}
 		diabloDrive = new RobotDrive(motors[0], motors[1], motors[2], motors[3]);
 		gyro = new ADXRS450_Gyro();
-		leftEncoder = new Encoder(RobotMap.ENC_l_1, RobotMap.ENC_l_2, false, Encoder.EncodingType.k4X);
-		rightEncoder = new Encoder(RobotMap.ENC_r_1, RobotMap.ENC_r_2, false, Encoder.EncodingType.k4X);
+		//leftEncoder = new Encoder(RobotMap.ENC_l_1, RobotMap.ENC_l_2, false, Encoder.EncodingType.k4X);
+		//rightEncoder = new Encoder(RobotMap.ENC_r_1, RobotMap.ENC_r_2, false, Encoder.EncodingType.k4X);
 	}
 
 	public void drive(double left, double right) {

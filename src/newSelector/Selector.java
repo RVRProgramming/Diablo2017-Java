@@ -16,7 +16,7 @@ public class Selector {
 	private int[] selectedOptions;
 	private int selectedRow = 0;
 	private String[] rowNames;
-	private Boolean properlyInitialized;
+	private boolean properlyInitialized= true;
 	private boolean properlyConfigured = true;
 	private int numberOfFailedInits = 0;
 	private boolean buttonPressed = false;
@@ -130,10 +130,6 @@ public class Selector {
 				System.out.println("The name has not been set (or set properly) for row " + i + ".");
 				properlyInitialized = false;
 			}
-		}
-
-		if (properlyInitialized == null) {
-			properlyInitialized = true;
 		}
 
 		displayLogic();

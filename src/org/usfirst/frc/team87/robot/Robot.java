@@ -40,7 +40,7 @@ public class Robot extends IterativeRobot {
 		gearsensor.ultraSetup();
 		TeleOutput = new TeleOutput();
 		TeleDrive = new TeleDrive();
-		NewAutoSelector = new NewAutoSelector();  // TEMP
+		NewAutoSelector = new NewAutoSelector();
 
 	}
 
@@ -53,7 +53,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledInit() {
-		NewAutoSelector.initialize();
+		//NewAutoSelector.initialize();
 		drivebase.resetGyro();
 	}
 
@@ -61,7 +61,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		NewAutoSelector.execute();
-		//autoselector.autoSelectorLogic();
+		autoselector.autoSelectorLogic();
 		dashDisplay();
 	}
 
