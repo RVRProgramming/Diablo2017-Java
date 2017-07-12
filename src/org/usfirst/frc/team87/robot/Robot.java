@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 		TeleOutput = new TeleOutput();
 		TeleDrive = new TeleDrive();
 		NewAutoSelector = new NewAutoSelector();  // TEMP
-		
+
 	}
 
 	public void dashDisplay() {
@@ -54,14 +54,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		NewAutoSelector.initialize();
-		Scheduler.getInstance().run();
 		drivebase.resetGyro();
 	}
 
 	@Override
 	public void disabledPeriodic() {
-		autoselector.autoSelectorLogic();
+		Scheduler.getInstance().run();
 		NewAutoSelector.execute();
+		//autoselector.autoSelectorLogic();
 		dashDisplay();
 	}
 

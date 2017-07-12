@@ -12,7 +12,7 @@ public class NewAutoSelector extends Command {
 	Selector newSelector;
 
 	public NewAutoSelector() {
-		int[] inputs = {0};
+		int[] inputs = {1};
 		newSelector = new Selector(2, rowInteraction.off, inputType.dPad, inputs);
 	}
 
@@ -25,6 +25,7 @@ public class NewAutoSelector extends Command {
 		newSelector.setRowOptions(0, row1options);
 		newSelector.setRowOptions(1, row2options);
 		newSelector.initTester();
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
