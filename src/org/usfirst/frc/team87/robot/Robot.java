@@ -54,6 +54,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		NewAutoSelector.initialize();
+		Scheduler.getInstance().run();
 		drivebase.resetGyro();
 	}
 
@@ -66,6 +67,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+		Scheduler.getInstance().run();
 		drivebase.resetGyro();
 		autonomousCommand = autoselector.selectCommandGroup();
 		if (autonomousCommand != null) {
@@ -81,6 +83,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+		Scheduler.getInstance().run();
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
