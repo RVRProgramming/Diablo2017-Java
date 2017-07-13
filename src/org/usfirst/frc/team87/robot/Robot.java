@@ -2,11 +2,7 @@ package org.usfirst.frc.team87.robot;
 
 import org.usfirst.frc.team87.robot.commands.NewAutoSelector;
 import org.usfirst.frc.team87.robot.commands.TeleDrive;
-import org.usfirst.frc.team87.robot.commands.TeleOutput;
 import org.usfirst.frc.team87.robot.subsystems.DriveBase;
-import org.usfirst.frc.team87.robot.subsystems.GearSensor;
-import org.usfirst.frc.team87.robot.subsystems.Intake;
-import org.usfirst.frc.team87.robot.subsystems.Output;
 import org.usfirst.frc.team87.robot.subsystems.Winch;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -19,9 +15,6 @@ public class Robot extends IterativeRobot {
 	public static AutonomousSelector autoselector;
 	public static DriveBase drivebase;
 	public static Winch winch;
-	public static Output output;
-	public static Intake intake;
-	public static GearSensor gearsensor;
 	private Command autonomousCommand;
 	private Command TeleOutput;
 	private Command TeleDrive;
@@ -32,13 +25,8 @@ public class Robot extends IterativeRobot {
 		autoselector = new AutonomousSelector();
 		drivebase = new DriveBase();
 		winch = new Winch();
-		output = new Output();
-		intake = new Intake();
-		gearsensor = new GearSensor();
 		oi = new OI();
 		drivebase.initGyro();
-		gearsensor.ultraSetup();
-		TeleOutput = new TeleOutput();
 		TeleDrive = new TeleDrive();
 		NewAutoSelector = new NewAutoSelector();
 
@@ -46,9 +34,6 @@ public class Robot extends IterativeRobot {
 
 	public void dashDisplay() {
 		SmartDashboard.putNumber("Gyro: ", drivebase.getGyro());
-		SmartDashboard.putNumber("Ultra: ", gearsensor.getUltra());
-		SmartDashboard.putNumber("Left Encode: ", drivebase.getLeftEncoder());
-		SmartDashboard.putNumber("Right Encode: ", drivebase.getRightEncoder());
 	}
 
 	@Override

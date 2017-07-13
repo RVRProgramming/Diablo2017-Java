@@ -1,7 +1,6 @@
 package org.usfirst.frc.team87.robot;
 
 import org.usfirst.frc.team87.robot.commands.TeleClimb;
-import org.usfirst.frc.team87.robot.commands.TeleIntake;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,8 +20,6 @@ public class OI {
 		Button intakeReverse = new JoystickButton(joystick, RobotMap.INTAKEREVERSE);
 
 		winchToggle.toggleWhenPressed(new TeleClimb());
-		intakeForward.whileHeld(new TeleIntake(1));
-		intakeReverse.whileHeld(new TeleIntake(-1));
 
 	}
 

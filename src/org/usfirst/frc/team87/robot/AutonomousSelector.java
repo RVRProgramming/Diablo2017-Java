@@ -100,15 +100,6 @@ public class AutonomousSelector {
 	}
 
 	public CommandGroup selectCommandGroup() {
-		/*if (RobotMap.endDestination == 1) {
-			return new GroupGear();
-		} else if (RobotMap.endDestination == 3) {
-			return new GroupBoiler();
-		} else if (RobotMap.endDestination == 2){
-			return new GroupBaseline();
-		} else {
-			return null;
-		}*/
 		if (RobotMap.endDestination == 0) {
 			return null;
 		} else {
