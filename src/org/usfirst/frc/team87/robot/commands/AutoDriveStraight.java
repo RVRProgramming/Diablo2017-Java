@@ -10,24 +10,24 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoDriveStraight extends Command {
 	private long startTime;
 	private long driveTime = 0;
-    public AutoDriveStraight(long driveTime) {
-    	this.driveTime=driveTime;
-    }
 
-    protected void initialize() {
-    	Robot.drivebase.resetEncoder();
-    	this.startTime=System.currentTimeMillis();
-    }
+	public AutoDriveStraight(long driveTime) {
+		this.driveTime = driveTime;
+	}
 
-    protected void execute() {
-    	Robot.drivebase.drive(0.75, 0.75);
-    }
+	protected void initialize() {
+		this.startTime = System.currentTimeMillis();
+	}
 
-    protected boolean isFinished() {
-        return System.currentTimeMillis()-startTime>driveTime;
-    }
+	protected void execute() {
+		Robot.drivebase.drive(0.75, 0.75);
+	}
 
-    protected void end() {
-    	Robot.drivebase.drive(0, 0);
-    }
+	protected boolean isFinished() {
+		return System.currentTimeMillis() - startTime > driveTime;
+	}
+
+	protected void end() {
+		Robot.drivebase.drive(0, 0);
+	}
 }

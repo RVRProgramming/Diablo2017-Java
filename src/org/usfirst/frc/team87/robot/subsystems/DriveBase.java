@@ -31,43 +31,6 @@ public class DriveBase extends Subsystem {
 		diabloDrive.tankDrive(-left, -right);
 	}
 
-	public void initGyro() {
-		gyro.calibrate();
-	}
-
-	public void resetGyro() {
-		gyro.reset();
-	}
-
-	public double getGyro() {
-		return gyro.getAngle();
-	}
-
-	public void resetEncoder() {
-		leftEncoder.reset();
-		rightEncoder.reset();
-	}
-
-	public int getLeftEncoder() {
-		return -leftEncoder.get();
-	}
-
-	public int getRightEncoder() {
-		return rightEncoder.get();
-	}
-
-	public PIDSource getSourceGyro() {
-		return gyro;
-	}
-
-	public PIDSource getSourceEncoderLeft() {
-		return leftEncoder;
-	}
-
-	public PIDSource getSourceEncoderRight() {
-		return rightEncoder;
-	}
-
 	public void initDefaultCommand() {
 	}
 }

@@ -16,8 +16,6 @@ public class OI {
 		joystick = new Joystick(RobotMap.JOYSTICK);
 		gamepad = new Joystick(RobotMap.GAMEPAD);
 		Button winchToggle = new JoystickButton(joystick, RobotMap.WINCHTOGGLE);
-		Button intakeForward = new JoystickButton(joystick, RobotMap.INTAKEFORWARD);
-		Button intakeReverse = new JoystickButton(joystick, RobotMap.INTAKEREVERSE);
 
 		winchToggle.toggleWhenPressed(new TeleClimb());
 
@@ -50,10 +48,6 @@ public class OI {
 
 	public double getWinchSpeed() {
 		return joystick.getRawAxis(RobotMap.WINCH);
-	}
-
-	public boolean getOutput() {
-		return joystick.getRawButton(RobotMap.OUTPUT);
 	}
 	
 	public int getPOV(){

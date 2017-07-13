@@ -5,20 +5,17 @@ import org.usfirst.frc.team87.robot.RobotMap;
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Winch extends Subsystem {
 	private CANTalon winchL;
 	private CANTalon winchR;
-	private PowerDistributionPanel pdp;
 	private Relay led;
 
 	public Winch() {
 		winchL = new CANTalon(RobotMap.WINCHL);
 		winchR = new CANTalon(RobotMap.WINCHR);
-		pdp = new PowerDistributionPanel();
 		led = new Relay(RobotMap.LED);
 	}
 
@@ -30,10 +27,6 @@ public class Winch extends Subsystem {
 			winchL.set(0);
 			winchR.set(0);
 		}
-	}
-
-	public double getPDP(int port) {
-		return pdp.getCurrent(port);
 	}
 
 	public void ledPower(boolean power) {
