@@ -13,7 +13,6 @@ public class Robot extends IterativeRobot {
 	public static DriveBase drivebase;
 	public static Winch winch;
 	private Command autonomousCommand;
-	private Command TeleOutput;
 	private Command TeleDrive;
 
 	@Override
@@ -53,7 +52,6 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 		TeleDrive.start();
-		TeleOutput.start();
 	}
 
 	@Override
