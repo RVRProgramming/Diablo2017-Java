@@ -112,31 +112,6 @@ public class Selector {
 	}
 
 	/**
-	 * This function tests the initialization of options and names for rows along with any row linkages.
-	 * @return Returns true if initialization passes, false if it fails.
-	 */
-	public boolean initTester() {
-		if (!properlyConfigured) {
-			properlyInitialized = false;
-			System.out.println("This selector is not properly configured. Please check the constructor arguments.");
-		}
-
-		for (int i = 0; i < numberOfRows; i++) {
-			if (rowOptions[i] == null) {
-				System.out.println("Options have not been set (or set properly) for row " + i + ".");
-				properlyInitialized = false;
-			}
-			if (rowNames[i] == null) {
-				System.out.println("The name has not been set (or set properly) for row " + i + ".");
-				properlyInitialized = false;
-			}
-		}
-
-		displayLogic();
-		return properlyInitialized;
-	}
-
-	/**
 	 * Gets the selected option number for the designated row.
 	 * @param row What row to find the selected option from,
 	 * @return Returns the selected option as an integer.
@@ -171,50 +146,6 @@ public class Selector {
 	 */
 	public String getOptionName(int row, int option) {
 		return rowOptions[row][option];
-	}
-
-	/**
-	 * This sets the options for a row. Do not set a row's options twice.
-	 * @param row Starts at 0 and goes to the specified number of rows less 1.
-	 * @param options All options must have a name. In the current version there is not protection against options in the same row having the same name.
-	 */
-	public void setRowOptions(int row, String[] options) {
-		if (row < 0 || row > numberOfRows - 1) {
-			throw new IndexOutOfBoundsException("The valid row numbers are from 0 to " + (numberOfRows - 1) + ".");
-		} else if (rowOptions[row] != null) {
-			throw new IllegalArgumentException("This row already has options assigned to it.");
-		}
-
-		if (options == null) {
-			throw new IllegalArgumentException("The options must have a value.");
-		} else {
-			for (int i = 0; i < options.length; i++) {
-				if (options[i] == null || options[i].length() < 1) {
-					throw new IllegalArgumentException("The name of an option must be a string with length greater than 1.");
-				}
-			}
-		}
-
-		rowOptions[row] = options;
-	}
-
-	/**
-	 * This sets a row's name. Do not set a name twice.
-	 * @param row Starts at 0 and goes to the specified number of rows less 1.
-	 * @param name Use "" for null. Otherwise use a normal string.
-	 */
-	public void setRowName(int row, String name) {
-		if (row < 0 || row > numberOfRows - 1) {
-			throw new IndexOutOfBoundsException("The valid row numbers are from 0 to " + (numberOfRows - 1) + ".");
-		} else if (rowNames[row] != null) {
-			throw new IllegalArgumentException("This row already has a name assigned to it.");
-		}
-
-		if (name == null) {
-			throw new IllegalArgumentException("The name must have a value. Please use \"\" for null.");
-		}
-
-		rowNames[row] = name;
 	}
 
 	public void addAdaptiveConstraint(int row, int option, int[] allowedOptions) {
