@@ -17,6 +17,18 @@ public class Selector {
 	 */
 	public Selector(int numberOfRows, rowInteraction rowInteraction, inputType inputType, int[] inputPorts) {
 	}
+	
+	/**
+	 * This enumerator defines the different types of row interactions supported by the selector.
+	 * <ul>
+	 * <li><b>off</b> turns off all row interactions.</li>
+	 * <li><b>adaptive</b> allows you to add adaptive option selection. This means that given option x in row y, you can choose to display only certain options from row y+1. This option supports only two or more rows.</li> 
+	 * <li><b>linkedAdaptive</b> allows you to add advanced adaptive option selection. This means that given one of the listed options{{x, y, z, ...}, {x, y, z, ...}, {x, y, z, ...}, ...} from rows{a, b, c, ...} ban options{l, m, n, ...} from row s. For the ban to be true, every chosen row must have one of the signified options selected. This option supports only 3 or more rows.</li>
+	 * </ul>
+	 * ADD DOCUMENTATION HERE FOR AN EXAMPLE OF MAKING ADAPTIVE RESTRICTIONS WORK IN CONJUNCTION WITH LINKEDADAPTIVE RESTRICTIONS.
+	 * <p>
+	 * If you are not sure which to use, turn on <b>linkedAdaptive</b>. <b>LinkedAdaptive</b> adds its own features on top of the features from <b>adaptive</b>. Code will likely run faster if the rowInteraction level is lower.
+	 */
 
 	/**
 	 * Main selector logic here. Should be called in a loop to keep the selector updated.
