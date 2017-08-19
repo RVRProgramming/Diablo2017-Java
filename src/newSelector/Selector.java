@@ -19,35 +19,9 @@ public class Selector {
 	}
 
 	/**
-	 * Getter for the movement direction from the 4 designated buttons. 
-	 * @return Output values explained in the controlLogic JavaDoc.
-	 * @see #controlLogic
-	 */
-	private int getFourButton() {
-		boolean up = controller.getRawButton(inputPorts[3]);
-		boolean right = controller.getRawButton(inputPorts[2]);
-		boolean down = controller.getRawButton(inputPorts[4]);
-		boolean left = controller.getRawButton(inputPorts[1]);
-		if (!up && !right && !down && !left) {
-			return 0;
-		} else if (up && !right && !down && !left) {
-			return 1;
-		} else if (!up && right && !down && !left) {
-			return 2;
-		} else if (!up && !right && down && !left) {
-			return 3;
-		} else if (!up && !right && !down && left) {
-			return 4;
-		} else {
-			return -1;
-		}
-	}
-
-	/**
 	 * Main selector logic here. Should be called in a loop to keep the selector updated.
 	 */
 	public void selectorLogic() {
-		if (properlyInitialized) { //I haven't decided what to do if the selector isn't initialized properly. If I print out a message, it will spam the end user which is not desirable. Maybe spam it 5 or 10 times and then trigger an off toggle?
 			controlLogic();
 			if (buttonNewlyPressed) {
 				buttonNewlyPressed = false;
@@ -76,10 +50,6 @@ public class Selector {
 				}
 			}
 			displayLogic();
-		} else if (numberOfFailedInits < 5) {
-			numberOfFailedInits++;
-			System.out.println("There was an issue while starting your selector. Please check your logs to determine what went wrong.");
-		}
 	}
 
 	/**
