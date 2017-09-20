@@ -4,8 +4,8 @@ public class RobotMap {
 	//////////////
 	// CONTROLS //
 	//////////////
-	public static final int JOYSTICK = 3; // Joystick
-	public static final int GAMEPAD = 2; // Controller
+	public static final int JOYSTICK = 0; // Joystick
+	public static final int GAMEPAD = 1; // Controller
 	public static final int LEFTDRIVECONTROL = 1; // Left Thumbstick Y Axis on Controller
 	public static final int RIGHTDRIVECONTROL = 5; // Right Thumbstick Y Axis on Controller
 	public static final int REVERSE = 8; // Start Button
