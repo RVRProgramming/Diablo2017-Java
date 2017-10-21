@@ -1,4 +1,4 @@
-package org.usfirst.frc.team87.robot;
+/*package org.usfirst.frc.team87.robot;
 
 import org.usfirst.frc.team87.robot.commands.GroupDriveStraight;
 
@@ -100,7 +100,7 @@ public class AutonomousSelector {
 	}
 
 	public CommandGroup selectCommandGroup() {
-		/*if (RobotMap.endDestination == 1) {
+		*//*if (RobotMap.endDestination == 1) {
 			return new GroupGear();
 		} else if (RobotMap.endDestination == 3) {
 			return new GroupBoiler();
@@ -108,7 +108,7 @@ public class AutonomousSelector {
 			return new GroupBaseline();
 		} else {
 			return null;
-		}*/
+		}*//*
 		if (RobotMap.endDestination == 0) {
 			return null;
 		} else {
@@ -116,3 +116,4 @@ public class AutonomousSelector {
 		}
 	}
 }
+*/
